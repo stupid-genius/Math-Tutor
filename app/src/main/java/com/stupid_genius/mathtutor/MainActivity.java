@@ -2,23 +2,19 @@ package com.stupid_genius.mathtutor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class MainActivity extends AppCompatActivity {
-	private MathTutor tutor;
 	TextView firstNumber;
 	TextView secondNumber;
+	TextView operator;
 	TextView answer;
-	TextView input;
+	TextView result;
+
+	private MathTutor tutor;
+	private SimpleProblem problem;
 
 	public MainActivity() {
 		tutor = new MathTutor();
@@ -31,34 +27,13 @@ public class MainActivity extends AppCompatActivity {
 
 		firstNumber = findViewById(R.id.firstNumber);
 		secondNumber = findViewById(R.id.secondNumber);
+		operator = findViewById(R.id.operator);
 		answer = findViewById(R.id.answer);
-		View answerLayout = findViewById(R.id.answerLayout);
-		input = findViewById(R.id.input);
-		answerLayout.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				input.requestFocus();
-				InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-				inputMethodManager.showSoftInput(input, 0);
-			}
-		});
-		input.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-			}
-
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				setAnswer(s);
-			}
-
-			@Override
-			public void afterTextChanged(Editable s) {
-			}
-		});
+		result = findViewById(R.id.result);
 
 		tutor.startSession();
-		setAnswer("");
+		startProblem();
+		setResult("");
 	}
 
 	private void setFirstNumber(CharSequence s) {
@@ -69,7 +44,56 @@ public class MainActivity extends AppCompatActivity {
 		secondNumber.setText(s, TextView.BufferType.NORMAL);
 	}
 
+	private void setOperator(CharSequence s) {
+		operator.setText(s, TextView.BufferType.NORMAL);
+	}
+
+	private Integer getAnswer(){
+		return Integer.valueOf(answer.getText().toString());
+	}
 	private void setAnswer(CharSequence s) {
 		answer.setText(s, TextView.BufferType.NORMAL);
+	}
+
+	private void appendAnswer(CharSequence s){
+		answer.append(s);
+	}
+
+	private void setResult(CharSequence s){
+		result.setText(s, TextView.BufferType.NORMAL);
+	}
+
+	public void numberClick(View button) {
+		TextView digit = (TextView) button;
+		appendAnswer(digit.getText());
+	}
+
+	public void clearClick(View button){
+		setAnswer("");
+	}
+
+	public void submitClick(View view) {
+		Integer userAnswer = getAnswer();
+		boolean isCorrect = problem.checkAnswer(userAnswer);
+		tutor.recordAnswer(isCorrect);
+		if (isCorrect) {
+			setResult("CORRECT!");
+		} else {
+			setResult(String.format("incorrect: %s %d", problem.toString(), userAnswer));
+		}
+		if (tutor.hasNext()) {
+			startProblem();
+		} else {
+			// something else
+		}
+	}
+
+	private void startProblem(){
+		problem = tutor.next();
+		setFirstNumber(problem.getFirstNumber().toString());
+		setSecondNumber(problem.getSecondNumber().toString());
+		setOperator(problem.getOperator());
+		setAnswer("");
+//		setResult("");
 	}
 }

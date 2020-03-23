@@ -11,6 +11,10 @@ public class SimpleNaturalSubtraction extends SimpleInteger {
 		}
 	}
 
+	public String getOperator(){
+		return "-";
+	}
+
 	@Override
 	public boolean checkAnswer(int input) {
 		return (firstNumber - secondNumber) == input;

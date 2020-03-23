@@ -46,7 +46,7 @@ public class MathTutor implements Iterator<SimpleProblem> {
 		return problemFactory.getProblem();
 	}
 
-	private void recordAnswer(boolean isCorrect) {
+	public void recordAnswer(boolean isCorrect) {
 		if (isCorrect) {
 			++numCorrect;
 		}

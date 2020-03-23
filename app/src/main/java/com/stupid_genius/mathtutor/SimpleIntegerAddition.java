@@ -6,6 +6,10 @@ public class SimpleIntegerAddition extends SimpleInteger {
 		secondNumber = (int) (Math.random() * level);
 	}
 
+	public String getOperator(){
+		return "+";
+	}
+
 	@Override
 	public boolean checkAnswer(int input) {
 		return (firstNumber + secondNumber) == input;

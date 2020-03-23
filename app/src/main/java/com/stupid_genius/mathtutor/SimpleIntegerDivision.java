@@ -7,6 +7,10 @@ class SimpleIntegerDivision extends SimpleInteger {
 		secondNumber = factor;
 	}
 
+	public String getOperator(){
+		return "/";
+	}
+
 	@Override
 	public boolean checkAnswer(int input) {
 		return (firstNumber / secondNumber) == input;

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 		answer = findViewById(R.id.answer);
 		result = findViewById(R.id.result);
 
-		tutor.startSession();
+		tutor.startSession("");
 		startProblem();
 		setResult("");
 	}
@@ -49,7 +49,12 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private Integer getAnswer(){
-		return Integer.valueOf(answer.getText().toString());
+		Integer userAnswer = 0;
+		String answerText = answer.getText().toString();
+		if (answerText.length() != 0) {
+			userAnswer = Integer.valueOf(answerText);
+		}
+		return userAnswer;
 	}
 	private void setAnswer(CharSequence s) {
 		answer.setText(s, TextView.BufferType.NORMAL);

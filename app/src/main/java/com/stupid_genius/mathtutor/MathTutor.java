@@ -10,9 +10,6 @@ public class MathTutor implements Iterator<SimpleProblem> {
 
 	private int sessionCount;
 
-	public MathTutor() {
-	}
-
 	/**
 	 * Configurations:
 	 * - operation
@@ -23,10 +20,7 @@ public class MathTutor implements Iterator<SimpleProblem> {
 	 *
 	 * @param config
 	 */
-	public MathTutor(String config) {
-	}
-
-	public void startSession() {
+	public void startSession(String config) {
 		problemFactory = new ProblemFactory(OperationEnum.RANDOM, 10, false);
 		numCorrect = 0;
 		sessionCount = 0;
@@ -61,7 +55,7 @@ public class MathTutor implements Iterator<SimpleProblem> {
 
 	public static void main(String[] args) {
 		final MathTutor tutor = new MathTutor();
-		tutor.startSession();
+		tutor.startSession("");
 
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {

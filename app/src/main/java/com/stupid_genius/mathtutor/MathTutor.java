@@ -18,10 +18,12 @@ public class MathTutor implements Iterator<SimpleProblem> {
 	 * - number of problems?
 	 * - time?
 	 *
-	 * @param config
+	 * @param op
+	 * @param difficulty
+	 * @param allowNegatives
 	 */
-	public void startSession(String config) {
-		problemFactory = new ProblemFactory(OperationEnum.RANDOM, 10, false);
+	public void startSession(OperationEnum op, int difficulty, boolean allowNegatives) {
+		problemFactory = new ProblemFactory(op, difficulty, allowNegatives);
 		numCorrect = 0;
 		sessionCount = 0;
 	}
@@ -55,7 +57,7 @@ public class MathTutor implements Iterator<SimpleProblem> {
 
 	public static void main(String[] args) {
 		final MathTutor tutor = new MathTutor();
-		tutor.startSession("");
+		tutor.startSession(OperationEnum.RANDOM, 10, true);
 
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {

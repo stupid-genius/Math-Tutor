@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/allowNegatives"
+        android:checkable="true"
+        android:title="Allow negatives" />
+    <item
+        android:id="@+id/difficulty"
+        android:title="Set difficulty"></item>
+    <item
+        android:id="@+id/operation"
+        android:title="Select operation" >
+        <menu >
+            <item
+                android:id="@+id/random"
+                android:title="random" />
+            <item
+                android:id="@+id/addition"
+                android:title="addition" />
+            <item
+                android:id="@+id/subtraction"
+                android:title="subtraction" />
+            <item
+                android:id="@+id/multiplication"
+                android:title="multiplication" />
+            <item
+                android:id="@+id/division"
+                android:title="division" />
+        </menu>
+    </item>
+</menu>

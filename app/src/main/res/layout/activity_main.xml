@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1d3d2d"
+    android:background="@color/colorPrimary"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -22,6 +23,16 @@
             android:layout_weight="20"
             android:orientation="vertical">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:menu="@menu/options_menu"
+                app:titleTextColor="@color/colorAccent" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/problemLayout"
                 android:layout_width="match_parent"
@@ -36,11 +47,9 @@
                     android:textColor="#eaf458"
                     android:textSize="36sp"
                     android:textStyle="bold"
-                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="invisible" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/operator"
@@ -61,7 +70,7 @@
 
                     <TextView
                         android:id="@+id/firstNumber"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginRight="8dp"
@@ -73,14 +82,13 @@
 
                     <TextView
                         android:id="@+id/secondNumber"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginRight="8dp"
                         android:text="456"
                         android:textColor="@color/colorAccent"
                         android:textSize="120sp"
-                        app:autoSizeTextType="uniform"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -121,12 +129,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:inputType="numberDecimal"
                     android:text="7890"
                     android:textColor="@color/colorAccent"
                     android:textSize="120sp"
-                    app:autoSizeMaxTextSize="128sp"
-                    app:autoSizeTextType="uniform"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -293,7 +298,7 @@
 
                 <Button
                     android:id="@+id/clear"
-                    android:layout_width="77dp"
+                    android:layout_width="76dp"
                     android:layout_height="36dp"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
@@ -305,7 +310,7 @@
                     app:layout_constraintTop_toTopOf="@+id/inputLayout" />
 
                 <Button
-                    android:id="@+id/decimal"
+                    android:id="@+id/separator"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginTop="4dp"
@@ -314,11 +319,13 @@
                     android:onClick="numberClick"
                     android:text="."
                     android:textColor="@color/colorAccent"
+                    android:visibility="invisible"
                     app:layout_constraintStart_toStartOf="@+id/clear"
-                    app:layout_constraintTop_toBottomOf="@+id/clear" />
+                    app:layout_constraintTop_toBottomOf="@+id/clear"
+                    tools:visibility="invisible" />
 
                 <Button
-                    android:id="@+id/fraction"
+                    android:id="@+id/negative"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginStart="4dp"
@@ -326,10 +333,10 @@
                     android:layout_weight="30"
                     android:background="@color/primary_lightVariant"
                     android:onClick="numberClick"
-                    android:text="/"
+                    android:text="-"
                     android:textColor="@color/colorAccent"
-                    app:layout_constraintStart_toEndOf="@+id/decimal"
-                    app:layout_constraintTop_toTopOf="@+id/decimal" />
+                    app:layout_constraintStart_toEndOf="@+id/separator"
+                    app:layout_constraintTop_toTopOf="@+id/separator" />
 
                 <TextView
                     android:id="@+id/result"
@@ -338,9 +345,20 @@
                     android:text="CORRECT!"
                     android:textColor="#eaf458"
                     android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="@+id/submit"
-                    app:layout_constraintStart_toStartOf="@+id/decimal"
+                    app:layout_constraintStart_toStartOf="@+id/separator"
                     app:layout_constraintTop_toBottomOf="@+id/inputLayout" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1:23"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@+id/submit"
+                    app:layout_constraintTop_toBottomOf="@+id/inputLayout"
+                    tools:visibility="invisible" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

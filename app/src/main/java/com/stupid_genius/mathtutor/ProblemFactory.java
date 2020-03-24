@@ -65,6 +65,10 @@ class ProblemFactory {
 		return problem;
 	}
 
+	int getProblemsCreated() {
+		return problemsCreated;
+	}
+
 	public String toString() {
 		return String.format("Total problems: %d", problemsCreated - 1);
 	}

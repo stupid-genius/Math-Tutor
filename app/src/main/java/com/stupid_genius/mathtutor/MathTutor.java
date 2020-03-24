@@ -8,7 +8,7 @@ public class MathTutor implements Iterator<SimpleProblem> {
 	private int numCorrect;
 	private boolean normalShutdown = false;
 
-	private int sessionCount;
+//	private int sessionCount;
 
 	/**
 	 * Configurations:
@@ -25,7 +25,7 @@ public class MathTutor implements Iterator<SimpleProblem> {
 	public void startSession(OperationEnum op, int difficulty, boolean allowNegatives) {
 		problemFactory = new ProblemFactory(op, difficulty, allowNegatives);
 		numCorrect = 0;
-		sessionCount = 0;
+//		sessionCount = 0;
 	}
 
 	public void killSession() {
@@ -46,6 +46,14 @@ public class MathTutor implements Iterator<SimpleProblem> {
 		if (isCorrect) {
 			++numCorrect;
 		}
+	}
+
+	public int getCorrectProblems() {
+		return numCorrect;
+	}
+
+	public int getTotalProblems() {
+		return problemFactory.getProblemsCreated();
 	}
 
 	public String toString() {

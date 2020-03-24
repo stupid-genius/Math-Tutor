@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 	TextView answer;
 	TextView result;
 	TextView resultTop;
+	TextView accuracy;
+	TextView problemCount;
 
 	Handler timerHandler = new Handler();
 	Runnable resultTimer = new Runnable() {
@@ -52,18 +54,20 @@ public class MainActivity extends AppCompatActivity {
 		answer = findViewById(R.id.answer);
 		result = findViewById(R.id.result);
 		resultTop = findViewById(R.id.result_top);
+		accuracy = findViewById(R.id.accuracy);
+		problemCount = findViewById(R.id.totalProblems);
 
 		startSession();
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu){
+	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.options_menu, menu);
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item){
+	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.allowNegatives:
 				item.setChecked(!allowNegatives);
@@ -80,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 						public void onClick(DialogInterface dialog, int which) {
 							String value = String.valueOf(editView.getText());
 							difficulty = Integer.valueOf(value);
+							startSession();
 						}
 					})
 					.setNegativeButton("Cancel", null)
@@ -120,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 		operator.setText(s, TextView.BufferType.NORMAL);
 	}
 
-	private Integer getAnswer(){
+	private Integer getAnswer() {
 		Integer userAnswer = 0;
 		String answerText = answer.getText().toString();
 		if (answerText.length() != 0) {
@@ -128,30 +133,41 @@ public class MainActivity extends AppCompatActivity {
 		}
 		return userAnswer;
 	}
+
 	private void setAnswer(CharSequence s) {
 		answer.setText(s, TextView.BufferType.NORMAL);
 	}
 
-	private void setResult(CharSequence s){
+	private void setResult(CharSequence s) {
 		result.setText(s, TextView.BufferType.NORMAL);
 	}
 
-	private void setResultTop(CharSequence s){
+	private void setResultTop(CharSequence s) {
 		resultTop.setText(s, TextView.BufferType.NORMAL);
 		timerHandler.postDelayed(resultTimer, 1000);
+	}
+
+	private void updateStats() {
+		Double total = (double) tutor.getTotalProblems();
+		Double percent = 100.0;
+		if (total > 0) {
+			percent = ((double) tutor.getCorrectProblems() / total)*100;
+		}
+		accuracy.setText(String.format("%d%%", percent.intValue()));
+		problemCount.setText(String.format("out of %d", total.intValue()));
 	}
 
 	public void numberClick(View button) {
 		TextView clickedButton = (TextView) button;
 		String buttonText = String.valueOf(clickedButton.getText());
 		String answerBuffer = String.valueOf(answer.getText());
-		if(buttonText.equals("-") && (answerBuffer.contains(buttonText) || !answerBuffer.isEmpty())){
+		if (buttonText.equals("-") && (answerBuffer.contains(buttonText) || !answerBuffer.isEmpty())) {
 			return;
 		}
 		answer.append(clickedButton.getText());
 	}
 
-	public void clearClick(View button){
+	public void clearClick(View button) {
 		setAnswer("");
 	}
 
@@ -159,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
 		Integer userAnswer = getAnswer();
 		boolean isCorrect = problem.checkAnswer(userAnswer);
 		tutor.recordAnswer(isCorrect);
+		updateStats();
 		if (isCorrect) {
 			setResult("CORRECT!");
 			setResultTop("CORRECT!");
@@ -173,20 +190,19 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
-	private void startSession(){
+	private void startSession() {
 		setResult("");
 		setResultTop("");
 		tutor.startSession(operation, difficulty, allowNegatives);
+		updateStats();
 		startProblem();
 	}
 
-	private void startProblem(){
+	private void startProblem() {
 		problem = tutor.next();
 		setFirstNumber(problem.getFirstNumber().toString());
 		setSecondNumber(problem.getSecondNumber().toString());
 		setOperator(problem.getOperator());
 		setAnswer("");
-//		View layout = findViewById(R.id.mainLayout);
-//		layout.invalidate();
 	}
 }

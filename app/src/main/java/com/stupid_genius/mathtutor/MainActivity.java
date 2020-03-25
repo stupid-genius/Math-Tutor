@@ -83,7 +83,18 @@ public class MainActivity extends AppCompatActivity {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							String value = String.valueOf(editView.getText());
-							difficulty = Integer.valueOf(value);
+							value = value.substring(0, value.length()>2?2:value.length());
+							if (value.isEmpty()) {
+								difficulty = 10;
+							} else {
+								difficulty = Integer.valueOf(value);
+								if (difficulty < 10) {
+									difficulty = 10;
+								}
+								if (difficulty > 99) {
+									difficulty = 99;
+								}
+							}
 							startSession();
 						}
 					})

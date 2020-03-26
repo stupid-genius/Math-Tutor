@@ -9,10 +9,7 @@ public class SimpleNaturalSubtraction extends SimpleIntegerProblem {
 			firstNumber = secondNumber;
 			secondNumber = temp;
 		}
-	}
-
-	public String getOperator(){
-		return "-";
+		operation = OperationEnum.SUBTRACTION;
 	}
 
 	@Override

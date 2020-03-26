@@ -4,10 +4,7 @@ public class SimpleIntegerAddition extends SimpleIntegerProblem {
 	SimpleIntegerAddition(int level) {
 		firstNumber = (int) (Math.random() * level);
 		secondNumber = (int) (Math.random() * level);
-	}
-
-	public String getOperator(){
-		return "+";
+		operation = OperationEnum.ADDITION;
 	}
 
 	@Override

@@ -4,10 +4,7 @@ class SimpleIntegerMultiplication extends SimpleIntegerProblem {
 	SimpleIntegerMultiplication(int level) {
 		firstNumber = (int) (Math.random() * level);
 		secondNumber = (int) (Math.random() * level);
-	}
-
-	public String getOperator(){
-		return "*";
+		operation = OperationEnum.MULTIPLICATION;
 	}
 
 	@Override

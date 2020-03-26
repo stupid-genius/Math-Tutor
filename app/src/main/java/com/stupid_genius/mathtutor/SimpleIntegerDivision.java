@@ -5,10 +5,7 @@ class SimpleIntegerDivision extends SimpleIntegerProblem {
 		int factor = (int) (Math.random() * level) + 1;
 		firstNumber = ((int) (Math.random() * level) + 1) * factor;
 		secondNumber = factor;
-	}
-
-	public String getOperator(){
-		return "/";
+		operation = OperationEnum.DIVISION;
 	}
 
 	@Override

@@ -4,10 +4,7 @@ public class SimpleIntegerSubraction extends SimpleIntegerProblem {
 	public SimpleIntegerSubraction(int level) {
 		firstNumber = (int) (Math.random() * level);
 		secondNumber = (int) (Math.random() * level);
-	}
-
-	public String getOperator(){
-		return "-";
+		operation = OperationEnum.SUBTRACTION;
 	}
 
 	@Override

@@ -22,8 +22,8 @@ public class MathTutor implements Iterator<SimpleProblem> {
 	 * @param difficulty
 	 * @param allowNegatives
 	 */
-	public void startSession(OperationEnum op, int difficulty, boolean allowNegatives) {
-		problemFactory = new ProblemFactory(op, difficulty, allowNegatives);
+	public void startSession(NumberEnum num, OperationEnum op, int difficulty, boolean allowNegatives) {
+		problemFactory = new ProblemFactory(num, op, difficulty, allowNegatives);
 		numCorrect = 0;
 //		sessionCount = 0;
 	}
@@ -65,7 +65,7 @@ public class MathTutor implements Iterator<SimpleProblem> {
 
 	public static void main(String[] args) {
 		final MathTutor tutor = new MathTutor();
-		tutor.startSession(OperationEnum.RANDOM, 10, true);
+		tutor.startSession(NumberEnum.FRACTION, OperationEnum.RANDOM, 10, true);
 
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
@@ -82,13 +82,23 @@ public class MathTutor implements Iterator<SimpleProblem> {
 		while (tutor.hasNext()) {
 			SimpleProblem problem = tutor.next();
 			System.out.println(problem.toString());
-			int input = stdin.nextInt();
-			boolean isCorrect = problem.checkAnswer(input);
+//			int answer = stdin.nextInt();
+			String input  = stdin.nextLine();
+			String[] ints = input.split("/");
+			SimpleFraction answer;
+			boolean isCorrect;
+			if (ints.length == 2) {
+				answer = new SimpleFraction(Integer.valueOf(ints[0]), Integer.valueOf(ints[1]));
+				isCorrect = problem.checkAnswer(answer);
+			} else {
+				answer = new SimpleFraction(0,0);
+				isCorrect = false;
+			}
 			tutor.recordAnswer(isCorrect);
 			if (isCorrect) {
 				System.out.println("Correct!");
 			} else {
-				System.out.printf("Incorrect: %s %d\n", problem.toString(), input);
+				System.out.printf("Incorrect: %s %s\n", problem.toString(), answer.toString());
 			}
 		}
 		tutor.killSession();

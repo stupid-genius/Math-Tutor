@@ -1,6 +1,6 @@
 package com.stupid_genius.mathtutor;
 
-public class SimpleNaturalSubtraction extends SimpleInteger {
+public class SimpleNaturalSubtraction extends SimpleIntegerProblem {
 	public SimpleNaturalSubtraction(int level) {
 		firstNumber = (int) (Math.random() * level);
 		secondNumber = (int) (Math.random() * level);
@@ -16,11 +16,8 @@ public class SimpleNaturalSubtraction extends SimpleInteger {
 	}
 
 	@Override
-	public boolean checkAnswer(int input) {
-		return (firstNumber - secondNumber) == input;
-	}
-
-	public String toString() {
-		return String.format("%d - %d = ", firstNumber, secondNumber);
+	public boolean checkAnswer(Number input) {
+		int userAnswer = (int) input;
+		return (firstNumber - secondNumber) == userAnswer;
 	}
 }

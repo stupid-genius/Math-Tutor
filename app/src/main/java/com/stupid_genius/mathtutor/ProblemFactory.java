@@ -1,15 +1,21 @@
 package com.stupid_genius.mathtutor;
 
+import java.util.AbstractMap;
+import java.util.Map;
+
 class ProblemFactory {
+	private NumberEnum numberClass;
 	private OperationEnum operation;
 	private int level;
 	private boolean allowNegatives;
 
 	private OperationEnum[] ops = OperationEnum.values();
+//	private Map<AbstractMap.SimpleEntry<NumberEnum, OperationEnum>, ?> problemClasses;
 
 	private int problemsCreated = 0;
 
-	ProblemFactory(OperationEnum op, int difficulty, boolean negatives) {
+	ProblemFactory(NumberEnum num, OperationEnum op, int difficulty, boolean negatives) {
+		numberClass = num;
 		operation = op;
 		level = difficulty;
 		allowNegatives = negatives;
@@ -21,39 +27,104 @@ class ProblemFactory {
 
 		switch (operation) {
 			case ADDITION:
-				problem = new SimpleIntegerAddition(level);
+				switch (numberClass) {
+					case INTEGER:
+						problem = new SimpleIntegerAddition(level);
+						break;
+					case FRACTION:
+						problem = new SimpleFractionAddition(level);
+						break;
+					default:
+						throw new UnsupportedOperationException(String.format("Unrecognized number class: %s", numberClass));
+				}
 				break;
 			case SUBTRACTION:
 				if (allowNegatives) {
-					problem = new SimpleIntegerSubraction(level);
+					switch (numberClass) {
+						case INTEGER:
+							problem = new SimpleIntegerSubraction(level);
+							break;
+						case FRACTION:
+							problem = new SimpleFractionSubtraction(level);
+							break;
+						default:
+							throw new UnsupportedOperationException(String.format("Unrecognized number class: %s", numberClass));
+					}
 				} else {
-					problem = new SimpleNaturalSubtraction(level);
+					switch (numberClass) {
+						case INTEGER:
+							problem = new SimpleNaturalSubtraction(level);
+							break;
+						case FRACTION:
+							problem = new SimpleFractionSubtraction(level);
+							break;
+						default:
+							throw new UnsupportedOperationException(String.format("Unrecognized number class: %s", numberClass));
+					}
 				}
 				break;
 			case MULTIPLICATION:
-				problem = new SimpleIntegerMultiplication(level);
+				switch (numberClass) {
+					case INTEGER:
+						problem = new SimpleIntegerMultiplication(level);
+						break;
+					case FRACTION:
+						problem = new SimpleFractionMultiplication(level);
+						break;
+					default:
+						throw new UnsupportedOperationException(String.format("Unrecognized number class: %s", numberClass));
+				}
 				break;
 			case DIVISION:
-				problem = new SimpleIntegerDivision(level);
+				switch (numberClass) {
+					case INTEGER:
+						problem = new SimpleIntegerDivision(level);
+						break;
+					case FRACTION:
+						problem = new SimpleFractionDivision(level);
+						break;
+					default:
+						throw new UnsupportedOperationException(String.format("Unrecognized number class: %s", numberClass));
+				}
 				break;
 			case RANDOM:
 				OperationEnum op = ops[(int) (Math.random() * (ops.length-1))];
 				switch (op) {
 					case ADDITION:
-						problem = new SimpleIntegerAddition(level);
+						if (NumberEnum.INTEGER.equals(numberClass)) {
+							problem = new SimpleIntegerAddition(level);
+						} else {
+							problem = new SimpleFractionAddition(level);
+						}
 						break;
 					case SUBTRACTION:
 						if (allowNegatives) {
-							problem = new SimpleIntegerSubraction(level);
+							if (NumberEnum.INTEGER.equals(numberClass)) {
+								problem = new SimpleIntegerSubraction(level);
+							} else{
+								problem = new SimpleFractionSubtraction(level);
+							}
 						} else {
-							problem = new SimpleNaturalSubtraction(level);
+							if(NumberEnum.INTEGER.equals(numberClass)){
+								problem = new SimpleNaturalSubtraction(level);
+							} else {
+								problem = new SimpleFractionSubtraction(level);
+							}
 						}
 						break;
 					case MULTIPLICATION:
-						problem = new SimpleIntegerMultiplication(level);
+						if (NumberEnum.INTEGER.equals(numberClass)) {
+							problem = new SimpleIntegerMultiplication(level);
+						} else {
+							problem = new SimpleFractionMultiplication(level);
+						}
 						break;
 					case DIVISION:
-						problem = new SimpleIntegerDivision(level);
+						if (NumberEnum.INTEGER.equals(numberClass)) {
+							problem = new SimpleIntegerDivision(level);
+						} else{
+							problem = new SimpleFractionDivision(level);
+						}
 						break;
 					default:
 						throw new UnsupportedOperationException(String.format("Unrecognized operation: %s", op));

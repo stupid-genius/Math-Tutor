@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
 	private void startSession() {
 		setResult("");
 		setResultTop("");
-		tutor.startSession(operation, difficulty, allowNegatives);
+		tutor.startSession(NumberEnum.INTEGER, operation, difficulty, allowNegatives);
 		updateStats();
 		startProblem();
 	}

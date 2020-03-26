@@ -1,6 +1,6 @@
 package com.stupid_genius.mathtutor;
 
-public abstract class SimpleInteger implements SimpleProblem {
+public abstract class SimpleIntegerProblem implements SimpleProblem {
     protected Integer firstNumber;
     protected Integer secondNumber;
 
@@ -11,4 +11,8 @@ public abstract class SimpleInteger implements SimpleProblem {
     public Integer getSecondNumber(){
         return secondNumber;
     }
+
+    public String toString() {
+    	return String.format("%d %s %d =", firstNumber, getOperator(), secondNumber);
+	}
 }

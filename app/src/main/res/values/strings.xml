@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Math Tutor</string>
+    <string name="title_activity_fraction">Fraction Tutor</string>
 </resources>

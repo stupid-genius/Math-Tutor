@@ -1,26 +1,34 @@
 package com.stupid_genius.mathtutor;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.os.Handler;
 import android.text.InputType;
+import android.util.SizeF;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
-	TextView firstNumber;
-	TextView secondNumber;
+public class FractionActivity extends AppCompatActivity {
+	TextView firstNumerator;
+	TextView firstDenominator;
+	TextView secondNumerator;
+	TextView secondDenominator;
 	TextView operator;
-	TextView answer;
+	TextView answerNegative;
+	TextView answerNumerator;
+	TextView answerDenominator;
+	TextView answerWhole;
+	TextView answerFocus;
 	TextView result;
 	TextView resultTop;
 	TextView accuracy;
@@ -39,22 +47,29 @@ public class MainActivity extends AppCompatActivity {
 	private OperationEnum operation = OperationEnum.RANDOM;
 	private int difficulty = 10;
 	private boolean allowNegatives = false;
+	private boolean allowImproper = false;
 
-	public MainActivity() {
+	public FractionActivity(){
 		tutor = new MathTutor();
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		setSupportActionBar(this.<Toolbar>findViewById(R.id.toolbar));
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		setContentView(R.layout.activity_fraction);
+		Toolbar toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 
-		firstNumber = findViewById(R.id.firstNumber);
-		secondNumber = findViewById(R.id.secondNumber);
+		firstNumerator = findViewById(R.id.firstNumerator);
+		firstDenominator = findViewById(R.id.firstDenominator);
+		secondNumerator = findViewById(R.id.secondNumerator);
+		secondDenominator = findViewById(R.id.secondDenominator);
 		operator = findViewById(R.id.operator);
-		answer = findViewById(R.id.answer);
+		answerNegative = findViewById(R.id.answerNegative);
+		answerNumerator = findViewById(R.id.answerNumerator);
+		answerDenominator = findViewById(R.id.answerDenominator);
+		answerWhole = findViewById(R.id.answerWhole);
 		result = findViewById(R.id.result);
 		resultTop = findViewById(R.id.result_top);
 		accuracy = findViewById(R.id.accuracy);
@@ -67,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.options_menu, menu);
 		MenuItem numberClass = menu.findItem(R.id.classSelected);
-		numberClass.setTitle("Integers");
+		numberClass.setTitle("Fractions");
 		return true;
 	}
 
@@ -79,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
 				allowNegatives = item.isChecked();
 				break;
 			case R.id.difficulty:
-				final EditText editView = new EditText(MainActivity.this);
+				final EditText editView = new EditText(FractionActivity.this);
 				editView.setInputType(InputType.TYPE_CLASS_NUMBER);
-				AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+				AlertDialog dialog = new AlertDialog.Builder(FractionActivity.this)
 					.setTitle("Set difficulty")
 					.setView(editView)
 					.setPositiveButton("Set", new DialogInterface.OnClickListener() {
@@ -123,11 +138,11 @@ public class MainActivity extends AppCompatActivity {
 				operation = OperationEnum.RANDOM;
 				break;
 			case R.id.integers:
-				return true;
-			case R.id.fractions:
-				Intent intent = new Intent(MainActivity.this, FractionActivity.class);
+				Intent intent = new Intent(FractionActivity.this, MainActivity.class);
 				startActivity(intent);
 				break;
+			case R.id.fractions:
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -135,33 +150,69 @@ public class MainActivity extends AppCompatActivity {
 		return true;
 	}
 
-	private void setFirstNumber(CharSequence s) {
-		firstNumber.setText(s, TextView.BufferType.NORMAL);
+	private void setFirstNumber(SimpleFraction fraction) {
+		firstNumerator.setText(fraction.getNumerator().toString(), TextView.BufferType.NORMAL);
+		firstDenominator.setText(fraction.getDenominator().toString(), TextView.BufferType.NORMAL);
 	}
 
-	private void setSecondNumber(CharSequence s) {
-		secondNumber.setText(s, TextView.BufferType.NORMAL);
+	private void setSecondNumber(SimpleFraction fraction) {
+		secondNumerator.setText(fraction.getNumerator().toString(), TextView.BufferType.NORMAL);
+		secondDenominator.setText(fraction.getDenominator().toString(), TextView.BufferType.NORMAL);
 	}
 
 	private void setOperator(CharSequence s) {
 		operator.setText(s, TextView.BufferType.NORMAL);
 	}
 
-	private Integer getAnswer() {
-		Integer userAnswer = 0;
-		String answerText = answer.getText().toString();
-		if (answerText.length() != 0) {
-			userAnswer = Integer.valueOf(answerText);
-		}
-		return userAnswer;
-	}
-
 	private void setAnswer(CharSequence s) {
-		answer.setText(s, TextView.BufferType.NORMAL);
+		answerFocus.setText(s);
 	}
 
-	private void setResult(CharSequence s) {
-		result.setText(s, TextView.BufferType.NORMAL);
+	private void appendAnswer(CharSequence s) {
+		answerFocus.append(s);
+	}
+
+	private SimpleFraction getAnswer() {
+		int numerator;
+		int denominator;
+		if (answerWhole.getVisibility() == View.VISIBLE) {
+			try {
+				numerator = Integer.valueOf(answerWhole.getText().toString());
+			} catch (NumberFormatException e) {
+				numerator = 0;
+			}
+			denominator = 1;
+		} else {
+			try {
+				numerator = Integer.valueOf(answerNumerator.getText().toString());
+			} catch (NumberFormatException e) {
+				numerator = 0;
+			}
+			try {
+				denominator = Integer.valueOf(answerDenominator.getText().toString());
+			} catch (NumberFormatException e) {
+				denominator = 0;
+			}
+		}
+		if (answerNegative.getVisibility() == View.VISIBLE) {
+			numerator *= -1;
+		}
+		return new SimpleFraction(numerator, denominator);
+	}
+
+	private void clearAnswer() {
+		answerNumerator.setText("");
+		answerDenominator.setText("");
+		answerWhole.setText("");
+		answerFocus = answerWhole;
+		answerNegative.setVisibility(View.GONE);
+		answerNumerator.setVisibility(View.GONE);
+		answerDenominator.setVisibility(View.GONE);
+		answerWhole.setVisibility(View.VISIBLE);
+	}
+
+	private void setResult(CharSequence s){
+		result.setText(s);
 	}
 
 	private void setResultTop(CharSequence s) {
@@ -179,22 +230,32 @@ public class MainActivity extends AppCompatActivity {
 		problemCount.setText(String.format("out of %d", total.intValue()));
 	}
 
+	public void switchFocus(View view){
+		if (answerWhole.getVisibility() == View.VISIBLE) {
+			answerNumerator.setText(answerWhole.getText());
+			answerNumerator.setVisibility(View.VISIBLE);
+			answerDenominator.setVisibility(View.VISIBLE);
+			answerWhole.setVisibility(View.GONE);
+			answerFocus = answerDenominator;
+		}
+	}
+
 	public void numberClick(View button) {
 		TextView clickedButton = (TextView) button;
 		String buttonText = String.valueOf(clickedButton.getText());
-		String answerBuffer = String.valueOf(answer.getText());
-		if (buttonText.equals("-") && (answerBuffer.contains(buttonText) || !answerBuffer.isEmpty())) {
-			return;
-		}
-		answer.append(clickedButton.getText());
+		appendAnswer(buttonText);
+	}
+
+	public void negativeClick(View button) {
+		answerNegative.setVisibility(answerNegative.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
 	}
 
 	public void clearClick(View button) {
-		setAnswer("");
+		clearAnswer();
 	}
 
 	public void submitClick(View view) {
-		Integer userAnswer = getAnswer();
+		SimpleFraction userAnswer = getAnswer();
 		boolean isCorrect = problem.checkAnswer(userAnswer);
 		tutor.recordAnswer(isCorrect);
 		updateStats();
@@ -202,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
 			setResult("CORRECT!");
 			setResultTop("CORRECT!");
 		} else {
-			setResult(String.format("incorrect: %s %d", problem.toString(), userAnswer));
+			setResult(String.format("incorrect: %s %s", problem.toString(), userAnswer.toString()));
 			setResultTop("incorrect");
 		}
 		if (tutor.hasNext()) {
@@ -215,16 +276,19 @@ public class MainActivity extends AppCompatActivity {
 	private void startSession() {
 		setResult("");
 		setResultTop("");
-		tutor.startSession(NumberEnum.INTEGER, operation, difficulty, allowNegatives);
+		NumberEnum numClass = allowImproper ? NumberEnum.FRACTION_IMPROPER : NumberEnum.FRACTION;
+		tutor.startSession(numClass, operation, difficulty, allowNegatives);
 		updateStats();
 		startProblem();
 	}
 
 	private void startProblem() {
 		problem = tutor.next();
-		setFirstNumber(problem.getFirstNumber().toString());
-		setSecondNumber(problem.getSecondNumber().toString());
+		SimpleFraction firstNumber = (SimpleFraction) problem.getFirstNumber();
+		SimpleFraction secondNumber = (SimpleFraction) problem.getSecondNumber();
+		setFirstNumber(firstNumber);
+		setSecondNumber(secondNumber);
 		setOperator(problem.getOperator());
-		setAnswer("");
+		clearAnswer();
 	}
 }

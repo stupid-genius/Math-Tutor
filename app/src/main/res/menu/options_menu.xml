@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/classSelected"
+        android:title="Integers"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/integers"
+                android:title="Integers" />
+            <item
+                android:id="@+id/fractions"
+                android:title="Fractions" />
+        </menu>
+    </item>
     <item
         android:id="@+id/allowNegatives"
         android:checkable="true"

@@ -12,11 +12,11 @@ public class MathTutor implements Iterator<SimpleProblem> {
 
 	/**
 	 * Configurations:
+	 * - number class
 	 * - operation
 	 * - difficulty level
 	 * - allow negatives
-	 * - number of problems?
-	 * - time?
+	 * - allow impromper fractions
 	 *
 	 * @param op
 	 * @param difficulty
@@ -91,7 +91,7 @@ public class MathTutor implements Iterator<SimpleProblem> {
 				answer = new SimpleFraction(Integer.valueOf(ints[0]), Integer.valueOf(ints[1]));
 				isCorrect = problem.checkAnswer(answer);
 			} else {
-				answer = new SimpleFraction(0,0);
+				answer = new SimpleFraction(Integer.valueOf(ints[0]),1);
 				isCorrect = false;
 			}
 			tutor.recordAnswer(isCorrect);

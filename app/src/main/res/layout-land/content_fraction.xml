@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/mainLayout"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/colorPrimary"
+	app:layout_behavior="@string/appbar_scrolling_view_behavior"
+	tools:context=".FractionActivity"
+	tools:showIn="@layout/activity_fraction">
+
+	<LinearLayout
+		android:id="@+id/linearLayout2"
+		android:layout_width="729dp"
+		android:layout_height="361dp"
+		android:orientation="vertical"
+		android:weightSum="100"
+		tools:layout_editor_absoluteX="1dp"
+		tools:layout_editor_absoluteY="1dp">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="36"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="horizontal"
+				android:weightSum="100">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="35"
+					android:orientation="horizontal">
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+						android:id="@+id/problemLayout"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent">
+
+						<androidx.constraintlayout.widget.ConstraintLayout
+							android:id="@+id/firstFraction"
+							android:layout_width="wrap_content"
+							android:layout_height="match_parent"
+							android:layout_marginEnd="8dp"
+							android:layout_marginRight="8dp"
+							app:layout_constraintEnd_toStartOf="@+id/operator">
+
+							<TextView
+								android:id="@+id/firstNumerator"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:textColor="@color/colorAccent"
+								android:textSize="96sp"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								tools:text="12" />
+
+							<TextView
+								android:id="@+id/firstDenominator"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:textColor="@color/colorAccent"
+								android:textSize="96sp"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								tools:text="34" />
+
+						</androidx.constraintlayout.widget.ConstraintLayout>
+
+						<TextView
+							android:id="@+id/firstDivider"
+							android:layout_width="0dp"
+							android:layout_height="40dp"
+							android:text="_____________________"
+							android:textColor="@color/colorAccent"
+							android:textSize="30sp"
+							android:textStyle="bold"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintEnd_toEndOf="@+id/firstFraction"
+							app:layout_constraintStart_toStartOf="@+id/firstFraction"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintVertical_bias="0.46" />
+
+						<TextView
+							android:id="@+id/operator"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginEnd="48dp"
+							android:layout_marginRight="48dp"
+							android:textColor="@color/colorAccent"
+							android:textSize="96dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							tools:text="+" />
+
+						<androidx.constraintlayout.widget.ConstraintLayout
+							android:id="@+id/secondFraction"
+							android:layout_width="wrap_content"
+							android:layout_height="match_parent"
+							android:layout_marginStart="8dp"
+							android:layout_marginLeft="8dp"
+							app:layout_constraintStart_toEndOf="@+id/operator">
+
+							<TextView
+								android:id="@+id/secondNumerator"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:textColor="@color/colorAccent"
+								android:textSize="96sp"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								tools:text="56" />
+
+							<TextView
+								android:id="@+id/secondDenominator"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:textColor="@color/colorAccent"
+								android:textSize="96dp"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								tools:text="78" />
+						</androidx.constraintlayout.widget.ConstraintLayout>
+
+						<TextView
+							android:id="@+id/secondDivider"
+							android:layout_width="0dp"
+							android:layout_height="40dp"
+							android:text="_____________"
+							android:textColor="@color/colorAccent"
+							android:textSize="30sp"
+							android:textStyle="bold"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintEnd_toEndOf="@+id/secondFraction"
+							app:layout_constraintStart_toStartOf="@+id/secondFraction"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintVertical_bias="0.46" />
+
+						<TextView
+							android:id="@+id/equals"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="="
+							android:textColor="@color/colorAccent"
+							android:textSize="120dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toEndOf="@+id/secondDivider"
+							app:layout_constraintTop_toTopOf="parent" />
+
+						<TextView
+							android:id="@+id/result_top"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="#eaf458"
+							android:textSize="24sp"
+							android:textStyle="bold"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toEndOf="@+id/secondDivider"
+							app:layout_constraintTop_toTopOf="parent"
+							tools:text="CORRECT!" />
+					</androidx.constraintlayout.widget.ConstraintLayout>
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="70"
+					android:orientation="horizontal">
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+						android:layout_width="match_parent"
+						android:layout_height="match_parent">
+
+						<androidx.constraintlayout.widget.ConstraintLayout
+							android:id="@+id/answerLayout"
+							android:layout_width="wrap_content"
+							android:layout_height="match_parent"
+							android:layout_marginStart="8dp"
+							android:layout_marginLeft="8dp"
+							app:layout_constraintStart_toEndOf="@+id/answerNegative">
+
+							<TextView
+								android:id="@+id/answerNumerator"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:textColor="@color/colorAccent"
+								android:textSize="96dp"
+								android:visibility="gone"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								tools:text="90" />
+
+							<TextView
+								android:id="@+id/answerDenominator"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:textColor="@color/colorAccent"
+								android:textSize="96sp"
+								android:visibility="gone"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								tools:text="123" />
+
+						</androidx.constraintlayout.widget.ConstraintLayout>
+
+						<TextView
+							android:id="@+id/answerDivider"
+							android:layout_width="0dp"
+							android:layout_height="40dp"
+							android:layout_weight="1"
+							android:text="__________________"
+							android:textColor="@color/colorAccent"
+							android:textSize="30sp"
+							android:textStyle="bold"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintEnd_toEndOf="@+id/answerLayout"
+							app:layout_constraintStart_toStartOf="@+id/answerLayout"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintVertical_bias="0.46" />
+
+						<TextView
+							android:id="@+id/answerWhole"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/colorAccent"
+							android:textSize="96sp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintStart_toEndOf="@+id/answerNegative"
+							app:layout_constraintTop_toTopOf="parent"
+							tools:text="90" />
+
+						<TextView
+							android:id="@+id/answerNegative"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="-"
+							android:textColor="@color/colorAccent"
+							android:textSize="96sp"
+							android:visibility="gone"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent" />
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+				</LinearLayout>
+			</LinearLayout>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="70"
+			android:orientation="vertical">
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/bottomLayout"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+				<androidx.cardview.widget.CardView
+					android:id="@+id/cardView"
+					android:layout_width="96dp"
+					android:layout_height="96dp"
+					android:layout_marginStart="8dp"
+					android:layout_marginLeft="8dp"
+					app:cardBackgroundColor="@color/colorPrimaryDark"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent">
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+						android:layout_width="match_parent"
+						android:layout_height="match_parent">
+
+						<TextView
+							android:id="@+id/accuracy"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/colorAccent"
+							android:textSize="24sp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							tools:text="100%" />
+
+						<TextView
+							android:id="@+id/totalProblems"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/colorAccent"
+							android:textSize="12sp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							tools:text="out of 100" />
+					</androidx.constraintlayout.widget.ConstraintLayout>
+				</androidx.cardview.widget.CardView>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:id="@+id/inputLayout"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="16dp"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent">
+
+					<Button
+						android:id="@+id/one"
+						android:layout_width="36dp"
+						android:layout_height="36dp"
+						android:layout_weight="30"
+						android:background="@color/primary_lightVariant"
+						android:onClick="numberClick"
+						android:text="1"
+						android:textColor="@color/colorAccent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent" />
+
+					<Button
+						android:id="@+id/two"
+						android:layout_width="36dp"
+						android:layout_height="36dp"
+						android:layout_marginStart="4dp"
+						android:layout_marginLeft="4dp"
+						android:layout_weight="30"
+						android:background="@color/primary_lightVariant"
+						android:onClick="numberClick"
+						android:text="2"
+						android:textColor="@color/colorAccent"
+						app:layout_constraintStart_toEndOf="@+id/one"
+						app:layout_constraintTop_toTopOf="@+id/one" />
+
+					<Button
+						android:id="@+id/six"
+						android:layout_width="36dp"
+						android:layout_height="36dp"
+						android:layout_marginTop="4dp"
+						android:layout_weight="30"
+						android:background="@color/primary_lightVariant"
+						android:onClick="numberClick"
+						android:text="6"
+						android:textColor="@color/colorAccent"
+						app:layout_constraintStart_toStartOf="@+id/one"
+						app:layout_constraintTop_toBottomOf="@+id/one" />
+
+					<Button
+						android:id="@+id/nine"
+						android:layout_width="36dp"
+						android:layout_height="36dp"
+						android:layout_marginStart="4dp"
+						android:layout_marginLeft="4dp"
+						android:layout_weight="30"
+						android:background="@color/primary_lightVariant"
+						android:onClick="numberClick"
+						android:text="9"
+						android:textColor="@color/colorAccent"
+						app:layout_constraintStart_toEndOf="@+id/eight"
+						app:layout_constraintTop_toTopOf="@+id/eight" />
+
+					<Button
+						android:id="@+id/three"
+						android:layout_width="36dp"
+						android:layout_height="36dp"
+						android:layout_marginStart="4dp"
+						android:layout_marginLeft="4dp"
+						android:layout_weight="30"
+						android:background="@color/primary_lightVariant"
+						android:onClick="numberClick"
+						android:text="3"
+						android:textColor="@color/colorAccent"
+						app:layout_constraintStart_toEndOf="@+id/two"
+						app:layout_constraintTop_toTopOf="@+id/two" />
+
+					<Button
+						android:id="@+id/eight"
+						android:layout_width="36dp"
+						android:layout_height="36dp"
+						android:layout_marginStart="4dp"
+						android:layout_marginLeft="4dp"
+						android:layout_weight="30"
+						android:background="@color/primary_lightVariant"
+						android:onClick="numberClick"
+						android:text="8"
+						android:textColor="@color/colorAccent"
+						app:layout_constraintStart_toEndOf="@+id/seven"
+						app:layout_constraintTop_toTopOf="@+id/seven" />
+
+					<Button
+						android:id="@+id/five"
+						android:layout_width="36dp"
+						android:layout_height="36dp"
+						android:layout_marginStart="4dp"
+						android:layout_marginLeft="4dp"
+						android:layout_weight="30"
+						android:background="@color/primary_lightVariant"
+						android:onClick="numberClick"
+						android:text="5"
+						android:textColor="@color/colorAccent"
+						app:layout_constraintStart_toEndOf="@+id/four"
+						app:layout_constraintTop_toTopOf="@+id/four" />
+
+					<Button
+						android:id="@+id/zero"
+						android:layout_width="36dp"
+						android:layout_height="36dp"
+						android:layout_marginStart="4dp"
+						android:layout_marginLeft="4dp"
+						android:background="@color/primary_lightVariant"
+						android:onClick="numberClick"
+						android:text="0"
+						android:textColor="@color/colorAccent"
+						app:layout_constraintStart_toEndOf="@+id/nine"
+						app:layout_constraintTop_toTopOf="@+id/nine" />
+
+					<Button
+						android:id="@+id/four"
+						android:layout_width="36dp"
+						android:layout_height="36dp"
+						android:layout_marginStart="4dp"
+						android:layout_marginLeft="4dp"
+						android:layout_weight="30"
+						android:background="@color/primary_lightVariant"
+						android:onClick="numberClick"
+						android:text="4"
+						android:textColor="@color/colorAccent"
+						app:layout_constraintStart_toEndOf="@+id/three"
+						app:layout_constraintTop_toTopOf="@+id/three" />
+
+					<Button
+						android:id="@+id/seven"
+						android:layout_width="36dp"
+						android:layout_height="36dp"
+						android:layout_marginStart="4dp"
+						android:layout_marginLeft="4dp"
+						android:layout_weight="30"
+						android:background="@color/primary_lightVariant"
+						android:onClick="numberClick"
+						android:text="7"
+						android:textColor="@color/colorAccent"
+						app:layout_constraintStart_toEndOf="@+id/six"
+						app:layout_constraintTop_toTopOf="@+id/six" />
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<Button
+					android:id="@+id/submit"
+					android:layout_width="77dp"
+					android:layout_height="77dp"
+					android:layout_marginEnd="64dp"
+					android:layout_marginRight="64dp"
+					android:background="@color/colorPrimaryDark"
+					android:onClick="submitClick"
+					android:text="✓"
+					android:textColor="@color/colorAccent"
+					android:textSize="64sp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintTop_toTopOf="@+id/inputLayout" />
+
+				<Button
+					android:id="@+id/fractionBar"
+					android:layout_width="50sp"
+					android:layout_height="50sp"
+					android:layout_marginStart="4dp"
+					android:layout_marginLeft="4dp"
+					android:background="@color/colorPrimaryDark"
+					android:onClick="switchFocus"
+					android:text="—"
+					android:textColor="@color/colorAccent"
+					android:textSize="30sp"
+					app:layout_constraintBottom_toBottomOf="@+id/inputLayout"
+					app:layout_constraintStart_toEndOf="@+id/inputLayout"
+					app:layout_constraintTop_toTopOf="@+id/inputLayout" />
+
+				<Button
+					android:id="@+id/clear"
+					android:layout_width="76dp"
+					android:layout_height="36dp"
+					android:layout_marginEnd="4dp"
+					android:layout_marginRight="4dp"
+					android:background="@color/primary_lightVariant"
+					android:onClick="clearClick"
+					android:text="clear"
+					android:textColor="@color/colorAccent"
+					app:layout_constraintEnd_toStartOf="@+id/inputLayout"
+					app:layout_constraintTop_toTopOf="@+id/inputLayout" />
+
+				<Button
+					android:id="@+id/exponent"
+					android:layout_width="36dp"
+					android:layout_height="36dp"
+					android:layout_marginTop="4dp"
+					android:layout_weight="30"
+					android:background="@color/primary_lightVariant"
+					android:onClick="numberClick"
+					android:text="^"
+					android:textColor="@color/colorAccent"
+					android:visibility="invisible"
+					app:layout_constraintStart_toStartOf="@+id/clear"
+					app:layout_constraintTop_toBottomOf="@+id/clear"
+					tools:visibility="visible" />
+
+				<Button
+					android:id="@+id/negative"
+					android:layout_width="36dp"
+					android:layout_height="36dp"
+					android:layout_marginStart="4dp"
+					android:layout_marginLeft="4dp"
+					android:layout_weight="30"
+					android:background="@color/primary_lightVariant"
+					android:onClick="negativeClick"
+					android:text="-"
+					android:textColor="@color/colorAccent"
+					app:layout_constraintStart_toEndOf="@+id/exponent"
+					app:layout_constraintTop_toTopOf="@+id/exponent" />
+
+				<TextView
+					android:id="@+id/result"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:textColor="@color/colorAccent"
+					android:textSize="12sp"
+					app:layout_constraintStart_toStartOf="@+id/clear"
+					app:layout_constraintTop_toBottomOf="@+id/inputLayout"
+					tools:text="CORRECT!" />
+
+				<TextView
+					android:id="@+id/timer"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/colorAccent"
+					android:textSize="12sp"
+					android:visibility="invisible"
+					app:layout_constraintEnd_toEndOf="@+id/submit"
+					app:layout_constraintTop_toBottomOf="@+id/inputLayout"
+					tools:text="1:23"
+					tools:visibility="visible" />
+
+				<TextView
+					android:id="@+id/fractionBarLabel"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="fraction"
+					android:textColor="@color/colorAccent"
+					android:textSize="11sp"
+					app:layout_constraintEnd_toEndOf="@+id/fractionBar"
+					app:layout_constraintStart_toStartOf="@+id/fractionBar"
+					app:layout_constraintTop_toTopOf="@+id/inputLayout" />
+			</androidx.constraintlayout.widget.ConstraintLayout>
+		</LinearLayout>
+	</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

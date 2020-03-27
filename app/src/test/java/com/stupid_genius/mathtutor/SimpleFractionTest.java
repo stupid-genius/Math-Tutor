@@ -2,7 +2,9 @@ package com.stupid_genius.mathtutor;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SimpleFractionTest {
 
@@ -16,10 +18,11 @@ public class SimpleFractionTest {
 
 	@Test
 	public void subtract() {
-		SimpleFraction minuend = new SimpleFraction(3, 4);
-		SimpleFraction subtrahend = new SimpleFraction(1, 2);
-		SimpleFraction expected = new SimpleFraction(1, 4);
+		SimpleFraction minuend = new SimpleFraction(1, 2);
+		SimpleFraction subtrahend = new SimpleFraction(3, 4);
+		SimpleFraction expected = new SimpleFraction(-1, 4);
 		assertEquals(expected, minuend.subtract(subtrahend));
+		assertTrue(expected.isNegative());
 	}
 
 	@Test
@@ -44,7 +47,7 @@ public class SimpleFractionTest {
 		SimpleFraction reduced = new SimpleFraction(1, 2);
 		assertFalse(fraction.equals(reduced));
 
-		fraction = new SimpleFraction(0, 2);
+		fraction = new SimpleFraction(9, 3);
 		reduced = fraction.reduce();
 		assertFalse(fraction.equals(reduced));
 	}
@@ -53,24 +56,49 @@ public class SimpleFractionTest {
 	public void equivalent() {
 		SimpleFraction fraction = new SimpleFraction(2, 4);
 		SimpleFraction reduced = new SimpleFraction(1, 2);
-		assert (fraction.equivalent(reduced));
+		assertTrue(fraction.equivalent(reduced));
 
-		fraction = new SimpleFraction(0, 2);
+		fraction = new SimpleFraction(9, 3);
 		reduced = fraction.reduce();
-		assert (fraction.equivalent(reduced));
+		assertTrue(fraction.equivalent(reduced));
 	}
 
 	@Test
 	public void reduce() {
 		SimpleFraction fraction = new SimpleFraction(2, 4);
+		assertFalse(fraction.isReduced());
 		SimpleFraction reduced = fraction.reduce();
+		assertTrue(reduced.isReduced());
 		SimpleFraction expected = new SimpleFraction(1, 2);
 		assertEquals(expected, reduced);
 
 		fraction = new SimpleFraction(0, 2);
 		reduced = fraction.reduce();
-		expected = new SimpleFraction(0, 1);
+		expected = new SimpleFraction(0, 2);
 		assertEquals(expected, reduced);
+
+		fraction = new SimpleFraction(4, 2);
+		reduced = fraction.reduce();
+		expected = new SimpleFraction(2, 1);
+		assertEquals(expected, reduced);
+	}
+
+	@Test
+	public void wholeNumbers() {
+		for (int i = 1; i < 1000; ++i) {
+			SimpleFraction fraction = new SimpleFraction(i, 1);
+			assertTrue(fraction.isWholeNumber());
+			assertTrue(fraction.intValue() == fraction.floatValue());
+			assertTrue(fraction.intValue() == fraction.doubleValue());
+			assertTrue(fraction.longValue() == fraction.floatValue());
+			assertTrue(fraction.longValue() == fraction.doubleValue());
+			fraction = new SimpleFraction(i, 2);
+			assertFalse(fraction.isWholeNumber());
+			assertFalse(fraction.intValue() == fraction.floatValue());
+			assertFalse(fraction.intValue() == fraction.doubleValue());
+			assertFalse(fraction.longValue() == fraction.floatValue());
+			assertFalse(fraction.longValue() == fraction.doubleValue());
+		}
 	}
 
 	@Test

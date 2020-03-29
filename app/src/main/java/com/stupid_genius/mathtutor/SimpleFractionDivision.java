@@ -9,7 +9,7 @@ public class SimpleFractionDivision extends SimpleFractionProblem {
 
 	public SimpleFractionDivision(int level) {
 		firstNumber = new SimpleFraction((int) (Math.random() * level), (int) (Math.random() * level) + 1);
-		secondNumber = new SimpleFraction((int) (Math.random() * level), (int) (Math.random() * level) + 1);
+		secondNumber = new SimpleFraction((int) (Math.random() * level)+1, (int) (Math.random() * level) + 1);
 		operation = OperationEnum.DIVISION;
 	}
 

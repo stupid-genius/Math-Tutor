@@ -1,8 +1,5 @@
 package com.stupid_genius.mathtutor;
 
-import java.util.AbstractMap;
-import java.util.Map;
-
 class ProblemFactory {
 	private NumberEnum numberClass;
 	private OperationEnum operation;
@@ -56,7 +53,7 @@ class ProblemFactory {
 							problem = new SimpleNaturalSubtraction(level);
 							break;
 						case FRACTION:
-							problem = new SimpleFractionSubtraction(level);
+							problem = new SimpleFractionSubtractionPositive(level);
 							break;
 						default:
 							throw new UnsupportedOperationException(String.format("Unrecognized number class: %s", numberClass));
@@ -108,7 +105,7 @@ class ProblemFactory {
 							if(NumberEnum.INTEGER.equals(numberClass)){
 								problem = new SimpleNaturalSubtraction(level);
 							} else {
-								problem = new SimpleFractionSubtraction(level);
+								problem = new SimpleFractionSubtractionPositive(level);
 							}
 						}
 						break;

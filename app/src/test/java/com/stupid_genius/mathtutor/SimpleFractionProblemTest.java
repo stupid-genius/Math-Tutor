@@ -19,13 +19,19 @@ public class SimpleFractionProblemTest {
 		SimpleFraction a = new SimpleFraction(4,2);
 		SimpleFraction b = new SimpleFraction(3,2);
 		SimpleFraction expected = new SimpleFraction(1,2);
-		SimpleFractionProblem problem = new SimpleFractionSubtraction(a, b);
+		SimpleFractionProblem problem = new SimpleFractionSubtractionPositive(a, b);
 		assertTrue(problem.checkAnswer(expected));
 
 		a = new SimpleFraction(3,2);
 		b = new SimpleFraction(4,2);
 		expected = new SimpleFraction(-1,2);
 		problem = new SimpleFractionSubtraction(a, b);
+		assertTrue(problem.checkAnswer(expected));
+
+		a = new SimpleFraction(5, 5);
+		b = new SimpleFraction(0, 4);
+		expected = new SimpleFraction( 1,1);
+		problem = new SimpleFractionSubtractionPositive(a, b);
 		assertTrue(problem.checkAnswer(expected));
 	}
 
@@ -51,7 +57,7 @@ public class SimpleFractionProblemTest {
 			assertTrue(problem.checkAnswer(a.add(b)));
 		}
 		for (int i=0; i<100; ++i) {
-			SimpleFractionSubtraction problem = new SimpleFractionSubtraction(100);
+			SimpleFractionSubtractionPositive problem = new SimpleFractionSubtractionPositive(100);
 			SimpleFraction a = problem.getFirstNumber();
 			SimpleFraction b = problem.getSecondNumber();
 			assertTrue(problem.checkAnswer(a.subtract(b)));

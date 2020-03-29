@@ -74,12 +74,17 @@ public class SimpleFractionTest {
 
 		fraction = new SimpleFraction(0, 2);
 		reduced = fraction.reduce();
-		expected = new SimpleFraction(0, 2);
+		expected = new SimpleFraction(0, 1);
 		assertEquals(expected, reduced);
 
 		fraction = new SimpleFraction(4, 2);
 		reduced = fraction.reduce();
 		expected = new SimpleFraction(2, 1);
+		assertEquals(expected, reduced);
+
+		fraction = new SimpleFraction(1, 1);
+		reduced = fraction.reduce();
+		expected = new SimpleFraction(1,1);
 		assertEquals(expected, reduced);
 	}
 

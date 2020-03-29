@@ -65,7 +65,7 @@ public class MathTutor implements Iterator<SimpleProblem> {
 
 	public static void main(String[] args) {
 		final MathTutor tutor = new MathTutor();
-		tutor.startSession(NumberEnum.FRACTION, OperationEnum.RANDOM, 10, true);
+		tutor.startSession(NumberEnum.FRACTION, OperationEnum.SUBTRACTION, 10, false);
 
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
@@ -92,7 +92,7 @@ public class MathTutor implements Iterator<SimpleProblem> {
 				isCorrect = problem.checkAnswer(answer);
 			} else {
 				answer = new SimpleFraction(Integer.valueOf(ints[0]),1);
-				isCorrect = false;
+				isCorrect = problem.checkAnswer(answer);
 			}
 			tutor.recordAnswer(isCorrect);
 			if (isCorrect) {

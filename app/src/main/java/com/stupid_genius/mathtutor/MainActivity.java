@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 				final EditText editView = new EditText(MainActivity.this);
 				editView.setInputType(InputType.TYPE_CLASS_NUMBER);
 				AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
-					.setTitle("Set difficulty")
+					.setTitle("Set difficulty (10 - 99)")
 					.setView(editView)
 					.setPositiveButton("Set", new DialogInterface.OnClickListener() {
 						@Override

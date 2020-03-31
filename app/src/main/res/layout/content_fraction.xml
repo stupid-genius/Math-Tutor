@@ -9,6 +9,7 @@
 	tools:context=".FractionActivity"
 	tools:showIn="@layout/activity_fraction">
 
+
 	<LinearLayout
 		android:id="@+id/linearLayout2"
 		android:layout_width="729dp"
@@ -33,7 +34,7 @@
 				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					android:layout_weight="30"
+					android:layout_weight="35"
 					android:orientation="horizontal">
 
 					<androidx.constraintlayout.widget.ConstraintLayout
@@ -186,7 +187,9 @@
 							android:id="@+id/answerLayout"
 							android:layout_width="wrap_content"
 							android:layout_height="match_parent"
-							app:layout_constraintStart_toStartOf="parent">
+							android:layout_marginStart="8dp"
+							android:layout_marginLeft="8dp"
+							app:layout_constraintStart_toEndOf="@+id/answerNegative">
 
 							<TextView
 								android:id="@+id/answerNumerator"
@@ -194,6 +197,7 @@
 								android:layout_height="wrap_content"
 								android:textColor="@color/colorAccent"
 								android:textSize="96dp"
+								android:visibility="gone"
 								app:layout_constraintEnd_toEndOf="parent"
 								app:layout_constraintStart_toStartOf="parent"
 								app:layout_constraintTop_toTopOf="parent"
@@ -205,6 +209,7 @@
 								android:layout_height="wrap_content"
 								android:textColor="@color/colorAccent"
 								android:textSize="96sp"
+								android:visibility="gone"
 								app:layout_constraintBottom_toBottomOf="parent"
 								app:layout_constraintEnd_toEndOf="parent"
 								app:layout_constraintStart_toStartOf="parent"
@@ -226,6 +231,29 @@
 							app:layout_constraintStart_toStartOf="@+id/answerLayout"
 							app:layout_constraintTop_toTopOf="parent"
 							app:layout_constraintVertical_bias="0.46" />
+
+						<TextView
+							android:id="@+id/answerWhole"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/colorAccent"
+							android:textSize="96sp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintStart_toEndOf="@+id/answerNegative"
+							app:layout_constraintTop_toTopOf="parent"
+							tools:text="90" />
+
+						<TextView
+							android:id="@+id/answerNegative"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="-"
+							android:textColor="@color/colorAccent"
+							android:textSize="96sp"
+							android:visibility="gone"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent" />
 
 					</androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -436,28 +464,29 @@
 					android:id="@+id/submit"
 					android:layout_width="77dp"
 					android:layout_height="77dp"
-					android:layout_marginStart="4dp"
-					android:layout_marginLeft="4dp"
+					android:layout_marginEnd="64dp"
+					android:layout_marginRight="64dp"
 					android:background="@color/colorPrimaryDark"
 					android:onClick="submitClick"
 					android:text="✓"
 					android:textColor="@color/colorAccent"
 					android:textSize="64sp"
-					app:layout_constraintStart_toEndOf="@+id/inputLayout"
+					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintTop_toTopOf="@+id/inputLayout" />
 
 				<Button
 					android:id="@+id/fractionBar"
-					android:layout_width="wrap_content"
-					android:layout_height="0dp"
+					android:layout_width="50sp"
+					android:layout_height="50sp"
+					android:layout_marginStart="4dp"
+					android:layout_marginLeft="4dp"
 					android:background="@color/colorPrimaryDark"
 					android:onClick="switchFocus"
-					android:text="Numerator"
+					android:text="—"
 					android:textColor="@color/colorAccent"
-					android:textSize="14dp"
+					android:textSize="30sp"
 					app:layout_constraintBottom_toBottomOf="@+id/inputLayout"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintStart_toEndOf="@+id/submit"
+					app:layout_constraintStart_toEndOf="@+id/inputLayout"
 					app:layout_constraintTop_toTopOf="@+id/inputLayout" />
 
 				<Button
@@ -496,7 +525,7 @@
 					android:layout_marginLeft="4dp"
 					android:layout_weight="30"
 					android:background="@color/primary_lightVariant"
-					android:onClick="numberClick"
+					android:onClick="negativeClick"
 					android:text="-"
 					android:textColor="@color/colorAccent"
 					app:layout_constraintStart_toEndOf="@+id/exponent"
@@ -523,7 +552,19 @@
 					app:layout_constraintTop_toBottomOf="@+id/inputLayout"
 					tools:text="1:23"
 					tools:visibility="visible" />
+
+				<TextView
+					android:id="@+id/fractionBarLabel"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="fraction"
+					android:textColor="@color/colorAccent"
+					android:textSize="11sp"
+					app:layout_constraintEnd_toEndOf="@+id/fractionBar"
+					app:layout_constraintStart_toStartOf="@+id/fractionBar"
+					app:layout_constraintTop_toTopOf="@+id/inputLayout" />
 			</androidx.constraintlayout.widget.ConstraintLayout>
 		</LinearLayout>
 	</LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

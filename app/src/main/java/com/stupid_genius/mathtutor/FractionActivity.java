@@ -97,7 +97,7 @@ public class FractionActivity extends AppCompatActivity {
 				final EditText editView = new EditText(FractionActivity.this);
 				editView.setInputType(InputType.TYPE_CLASS_NUMBER);
 				AlertDialog dialog = new AlertDialog.Builder(FractionActivity.this)
-					.setTitle("Set difficulty")
+					.setTitle("Set difficulty (10 - 99)")
 					.setView(editView)
 					.setPositiveButton("Set", new DialogInterface.OnClickListener() {
 						@Override

@@ -1,6 +1,7 @@
 module.exports = {
 	title: 'Stupid Genius Software',
 	description: 'V2VsbCwgYXJlbid0IHlvdSBjbGV2ZXI/aSAK',
+	base: '/MathTutor/',
 	themeConfig: {
 		nav: [
 			 { text: 'Home', link: '/' },

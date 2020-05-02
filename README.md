@@ -1,15 +1,15 @@
 ---
 home: true
-heroImage: /sgslogo.png
+heroImage: /mathtutor_feature.png
 heroText: 
-tagline: Creator of the MathTutor
+tagline: 
 actionText: Get MathTutor
-actionLink: https://play.google.com
+actionLink: https://play.google.com/store/apps/details?id=com.stupid_genius.mathtutor
 features:
 - title: Simple and Effective
-  details: Straightforward arithmetic drills help develop "muscle memory"
-- title: Surprisingly Fun
-  details: See how many you can do!
+  details: Straightforward arithmetic drills with integers, fractions, decimals, and exponents
+- title: Printable worksheets
+  details: Print out randomized worksheets with a separate answer key
 - title: Skill development
   details: Reflexive recall of arithmetic is important in any STEM field
 footer: Copyright © 2020 Stupid Genius Software

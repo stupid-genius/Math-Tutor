@@ -9,7 +9,7 @@ features:
 - title: Simple and Effective
   details: Straightforward arithmetic drills with integers, fractions, decimals, and exponents
 - title: Printable worksheets
-  details: Print out randomized worksheets with a separate answer key
+  details: Coming soon—print out randomized worksheets with a separate answer key
 - title: Skill development
   details: Reflexive recall of arithmetic is important in any STEM field
 footer: Copyright © 2020 Stupid Genius Software

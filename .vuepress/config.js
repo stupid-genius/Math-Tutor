@@ -1,12 +1,12 @@
 module.exports = {
-	title: 'Stupid Genius Software',
+	title: 'Math Tutor',
 	description: 'V2VsbCwgYXJlbid0IHlvdSBjbGV2ZXI/aSAK',
 	base: '/MathTutor/',
 	themeConfig: {
 		nav: [
-			 { text: 'Home', link: '/' },
+			 { text: 'Help', link: '/help/' },
 			 { text: 'Privacy', link: '/privacy/' },
-			 { text: 'Apps', link: 'https://apps.stupid-genius.com' }
+			 { text: 'Other apps', link: 'https://apps.stupid-genius.com' }
 		]
 	}
 }

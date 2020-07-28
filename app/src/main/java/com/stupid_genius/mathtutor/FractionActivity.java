@@ -143,6 +143,8 @@ public class FractionActivity extends AppCompatActivity {
 				break;
 			case R.id.fractions:
 				return true;
+			case R.id.worksheet:
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}

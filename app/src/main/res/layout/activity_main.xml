@@ -170,6 +170,7 @@
                     android:layout_marginRight="8dp"
                     android:textColor="@color/colorAccent"
                     android:textSize="120sp"
+                    app:layout_constraintBottom_toTopOf="@+id/bottomLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="7890" />

@@ -1,7 +1,19 @@
 package com.stupid_genius.mathtutor;
 
+import com.google.common.collect.Maps;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
+
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateExceptionHandler;
 
 public class MathTutor implements Iterator<SimpleProblem> {
 	private ProblemFactory problemFactory;
@@ -77,13 +89,38 @@ public class MathTutor implements Iterator<SimpleProblem> {
 			}
 		});
 
+		Map<String, Object> modelRoot = Maps.newHashMap();
+		Configuration config = new Configuration();
+		try {
+			config.setDirectoryForTemplateLoading(new File("app/src/main/res/raw"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		config.setDefaultEncoding("UTF-8");
+		config.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+		config.setLogTemplateExceptions(false);
+		Template worksheetTemplate = null;
+		try {
+			worksheetTemplate = config.getTemplate("worksheet.html");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Writer out = new OutputStreamWriter(System.out);
+		try {
+			worksheetTemplate.process(modelRoot, out);
+		} catch (TemplateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		System.out.println("Welcome to MathTutor CLI!");
 		Scanner stdin = new Scanner(System.in);
 		while (tutor.hasNext()) {
 			SimpleProblem problem = tutor.next();
 			System.out.println(problem.toString());
 //			int answer = stdin.nextInt();
-			String input  = stdin.nextLine();
+			String input = stdin.nextLine();
 			String[] ints = input.split("/");
 			SimpleFraction answer;
 			boolean isCorrect;
@@ -91,7 +128,7 @@ public class MathTutor implements Iterator<SimpleProblem> {
 				answer = new SimpleFraction(Integer.valueOf(ints[0]), Integer.valueOf(ints[1]));
 				isCorrect = problem.checkAnswer(answer);
 			} else {
-				answer = new SimpleFraction(Integer.valueOf(ints[0]),1);
+				answer = new SimpleFraction(Integer.valueOf(ints[0]), 1);
 				isCorrect = problem.checkAnswer(answer);
 			}
 			tutor.recordAnswer(isCorrect);

@@ -13,6 +13,9 @@
             <item
                 android:id="@+id/fractions"
                 android:title="Fractions" />
+            <item
+                android:id="@+id/worksheet"
+                android:title="Worksheet" />
         </menu>
     </item>
     <item

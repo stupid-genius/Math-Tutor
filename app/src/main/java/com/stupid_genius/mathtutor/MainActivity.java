@@ -10,19 +10,28 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintJob;
+import android.print.PrintManager;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import freemarker.cache.StringTemplateLoader;
@@ -55,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
 	private int difficulty = 10;
 	private boolean allowNegatives = false;
 
+	private Map<String, Object> modelRoot = Maps.newHashMap();
+	private Configuration config = new Configuration();
+	private Template worksheetTemplate = null;
+	private WebView webView;
+
 	public MainActivity() {
 		tutor = new MathTutor();
 	}
@@ -67,6 +81,13 @@ public class MainActivity extends AppCompatActivity {
 		stringLoader.putTemplate("worksheet", template);
 		conf.setTemplateLoader(stringLoader);
 		return conf.getTemplate("worksheet");
+	}
+
+	private void createWebPrintJob(WebView view){
+		PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
+		String jobName = getString(R.string.app_name) + " Document";
+		PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter(jobName);
+		PrintJob printJob = printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
 	}
 
 	@Override
@@ -85,24 +106,31 @@ public class MainActivity extends AppCompatActivity {
 		accuracy = findViewById(R.id.accuracy);
 		problemCount = findViewById(R.id.totalProblems);
 
-		//int id = this.getResources().getIdentifier("worksheet.html", "raw", this.getPackageName());
-		Map<String, Object> modelRoot = Maps.newHashMap();
-		Configuration config = new Configuration();
+		List<Map<String, String>> problems = Lists.newArrayList();
+		modelRoot.put("problems", problems);
 		config.setDefaultEncoding("UTF-8");
 		config.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 		config.setLogTemplateExceptions(true);
-		Template worksheetTemplate = null;
-		try {
-			//worksheetTemplate = config.getTemplate("worksheet.html");
-			worksheetTemplate = getTemplate(getApplicationContext(), config);
-		} catch (IOException e) {
-			e.printStackTrace();
+
+		// build dummy data
+		tutor.startSession(NumberEnum.INTEGER, operation, difficulty, allowNegatives);
+		int firstNum = 12;
+		int secNum = 34;
+		for(int i=0; i<10; ++i){
+			Map<String, String> problem = Maps.newHashMap();
+			problem.put("firstNum", String.valueOf(firstNum));
+			problem.put("secNum", String.valueOf(secNum));
+			problem.put("op", "+");
+			problem.put("answer", String.valueOf(firstNum+secNum));
+			problems.add(problem);
+			++firstNum;
+			++secNum;
 		}
-		Writer out = new OutputStreamWriter(System.out);
+		SimpleDateFormat format = new SimpleDateFormat("MMMM d, y");
+		modelRoot.put("date", format.format(new Date()));
+
 		try {
-			worksheetTemplate.process(modelRoot, out);
-		} catch (TemplateException e) {
-			e.printStackTrace();
+			worksheetTemplate = getTemplate(getApplicationContext(), config);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -176,7 +204,27 @@ public class MainActivity extends AppCompatActivity {
 				startActivity(intent);
 				break;
 			case R.id.worksheet:
-				return true;
+				StringWriter out = new StringWriter();
+				try {
+					worksheetTemplate.process(modelRoot, out);
+				} catch (TemplateException | IOException e) {
+					e.printStackTrace();
+				}
+
+				webView = new WebView(MainActivity.this);
+				webView.setWebViewClient(new WebViewClient(){
+					public boolean shouldOverrideUrlLoading(WebView view, String url){
+						return false;
+					}
+
+					@Override
+					public void onPageFinished(WebView view, String url){
+						createWebPrintJob(view);
+						webView = null;
+					}
+				});
+				webView.loadDataWithBaseURL(null, out.toString(), "text/HTML", "UTF-8", null);
+				break;
 			default:
 				return super.onOptionsItemSelected(item);
 		}

@@ -106,13 +106,13 @@ public class MathTutor implements Iterator<SimpleProblem> {
 			e.printStackTrace();
 		}
 		Writer out = new OutputStreamWriter(System.out);
-		try {
-			worksheetTemplate.process(modelRoot, out);
-		} catch (TemplateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			worksheetTemplate.process(modelRoot, out);
+//		} catch (TemplateException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 		System.out.println("Welcome to MathTutor CLI!");
 		Scanner stdin = new Scanner(System.in);

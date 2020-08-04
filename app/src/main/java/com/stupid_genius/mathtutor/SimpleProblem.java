@@ -4,5 +4,6 @@ public interface SimpleProblem {
 	Number getFirstNumber();
 	Number getSecondNumber();
 	String getOperator();
-    boolean checkAnswer(Number input);
+	Number getAnswer();
+	boolean checkAnswer(Number input);
 }

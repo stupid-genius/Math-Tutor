@@ -11,7 +11,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Handler;
 import android.text.InputType;
-import android.util.SizeF;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -278,8 +277,8 @@ public class FractionActivity extends AppCompatActivity {
 	private void startSession() {
 		setResult("");
 		setResultTop("");
-		NumberEnum numClass = allowImproper ? NumberEnum.FRACTION_IMPROPER : NumberEnum.FRACTION;
-		tutor.startSession(numClass, operation, difficulty, allowNegatives);
+//		NumberEnum numClass = allowImproper ? NumberEnum.FRACTION_IMPROPER : NumberEnum.FRACTION;
+		tutor.startSession(NumberEnum.FRACTION, operation, 0, difficulty, allowNegatives, allowImproper);
 		updateStats();
 		startProblem();
 	}

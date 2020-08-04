@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
 	private int difficulty = 10;
 	private boolean allowNegatives = false;
 
-	private Map<String, Object> modelRoot = Maps.newHashMap();
 	private Configuration config = new Configuration();
 	private Template worksheetTemplate = null;
 	private WebView webView;
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
 	private void createWebPrintJob(WebView view){
 		PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
-		String jobName = getString(R.string.app_name) + " Document";
+		String jobName = getString(R.string.app_name) + " Worksheet";
 		PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter(jobName);
 		PrintJob printJob = printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
 	}
@@ -106,17 +105,15 @@ public class MainActivity extends AppCompatActivity {
 		accuracy = findViewById(R.id.accuracy);
 		problemCount = findViewById(R.id.totalProblems);
 
-		List<Map<String, String>> problems = Lists.newArrayList();
-		modelRoot.put("problems", problems);
 		config.setDefaultEncoding("UTF-8");
 		config.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 		config.setLogTemplateExceptions(true);
 
 		// build dummy data
-		tutor.startSession(NumberEnum.INTEGER, operation, difficulty, allowNegatives);
+//		tutor.startSession(NumberEnum.INTEGER, operation, 30, difficulty, allowNegatives, false);
 		int firstNum = 12;
 		int secNum = 34;
-		for(int i=0; i<10; ++i){
+		/*for(int i=0; i<10; ++i){
 			Map<String, String> problem = Maps.newHashMap();
 			problem.put("firstNum", String.valueOf(firstNum));
 			problem.put("secNum", String.valueOf(secNum));
@@ -127,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 			++secNum;
 		}
 		SimpleDateFormat format = new SimpleDateFormat("MMMM d, y");
-		modelRoot.put("date", format.format(new Date()));
+		modelRoot.put("date", format.format(new Date()));*/
 
 		try {
 			worksheetTemplate = getTemplate(getApplicationContext(), config);
@@ -204,6 +201,22 @@ public class MainActivity extends AppCompatActivity {
 				startActivity(intent);
 				break;
 			case R.id.worksheet:
+				Map<String, Object> modelRoot = Maps.newHashMap();
+				SimpleDateFormat format = new SimpleDateFormat("MMMM d, y");
+				modelRoot.put("date", format.format(new Date()));
+				List<Map<String, String>> problems = Lists.newArrayList();
+				modelRoot.put("problems", problems);
+
+				tutor.startSession(NumberEnum.INTEGER, operation, 25, difficulty, allowNegatives, false);
+				for(SimpleProblem problem : tutor){
+					Map<String, String> newProblem = Maps.newHashMap();
+					newProblem.put("firstNum", String.valueOf(problem.getFirstNumber()));
+					newProblem.put("secNum", String.valueOf(problem.getSecondNumber()));
+					newProblem.put("op", problem.getOperator());
+					newProblem.put("answer", String.valueOf(problem.getAnswer()));
+					problems.add(newProblem);
+				}
+
 				StringWriter out = new StringWriter();
 				try {
 					worksheetTemplate.process(modelRoot, out);
@@ -312,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
 	private void startSession() {
 		setResult("");
 		setResultTop("");
-		tutor.startSession(NumberEnum.INTEGER, operation, difficulty, allowNegatives);
+		tutor.startSession(NumberEnum.INTEGER, operation, 0, difficulty, allowNegatives, false);
 		updateStats();
 		startProblem();
 	}

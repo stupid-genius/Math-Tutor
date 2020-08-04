@@ -1,13 +1,25 @@
 package com.stupid_genius.mathtutor;
 
+import com.google.common.collect.Maps;
+
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
 public class SimpleIntegerProblemTest {
+	static Map<String, String> config = Maps.newHashMap();
+
+	@BeforeClass
+	public static void setupConfig(){
+		config.put("level", "100");
+	}
+
 	@Test
 	public void addition() {
-		SimpleIntegerProblem problem = new SimpleIntegerAddition(1000);
+		SimpleIntegerProblem problem = new SimpleIntegerAddition(config);
 		Integer a = problem.getFirstNumber();
 		Integer b = problem.getSecondNumber();
 		assertTrue(problem.checkAnswer(a + b));
@@ -15,7 +27,7 @@ public class SimpleIntegerProblemTest {
 
 	@Test
 	public void subtraction() {
-		SimpleIntegerProblem problem = new SimpleIntegerSubraction(1000);
+		SimpleIntegerProblem problem = new SimpleIntegerSubraction(config);
 		Integer a = problem.getFirstNumber();
 		Integer b = problem.getSecondNumber();
 		assertTrue(problem.checkAnswer(a-b));
@@ -23,7 +35,7 @@ public class SimpleIntegerProblemTest {
 
 	@Test
 	public void multiplication() {
-		SimpleIntegerProblem problem = new SimpleIntegerMultiplication(1000);
+		SimpleIntegerProblem problem = new SimpleIntegerMultiplication(config);
 		Integer a = problem.getFirstNumber();
 		Integer b = problem.getSecondNumber();
 		assertTrue(problem.checkAnswer(a*b));
@@ -31,7 +43,7 @@ public class SimpleIntegerProblemTest {
 
 	@Test
 	public void division() {
-		SimpleIntegerProblem problem = new SimpleIntegerDivision(1000);
+		SimpleIntegerProblem problem = new SimpleIntegerDivision(config);
 		Integer a = problem.getFirstNumber();
 		Integer b = problem.getSecondNumber();
 		assertTrue(problem.checkAnswer(a/b));

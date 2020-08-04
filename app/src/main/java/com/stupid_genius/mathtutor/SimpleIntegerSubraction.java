@@ -1,15 +1,22 @@
 package com.stupid_genius.mathtutor;
 
+import java.util.Map;
+
 public class SimpleIntegerSubraction extends SimpleIntegerProblem {
-	public SimpleIntegerSubraction(int level) {
+	public SimpleIntegerSubraction(Map config) {
+		int level = Integer.parseInt(((Map<String, String>)config).get("level"));
 		firstNumber = (int) (Math.random() * level);
 		secondNumber = (int) (Math.random() * level);
 		operation = OperationEnum.SUBTRACTION;
 	}
 
 	@Override
+	public Number getAnswer(){
+		return firstNumber - secondNumber;
+	}
+
+	@Override
 	public boolean checkAnswer(Number input) {
-		int userAnswer = (int) input;
-		return (firstNumber - secondNumber) == userAnswer;
+		return getAnswer().equals(input);
 	}
 }

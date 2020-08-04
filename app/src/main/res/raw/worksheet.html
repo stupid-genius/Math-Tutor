@@ -13,14 +13,14 @@
 			}
 			#problems{
 				display: grid;
-				grid-template-columns: repeat(auto-fill, 125px);
+				grid-template-columns: repeat(auto-fill, 130px);
 				padding-bottom: 1em;
 				margin-bottom: 1em;
 			}
 			.problem{
 				display: inline-block;
 				position: relative;
-				margin: 1em;
+				margin: 1em .5em;
 				padding-left: .6em;
 				padding-bottom: .125em;
 				text-align: right;
@@ -71,7 +71,7 @@
 			<#list problems as problem>
 			<div>
 				<div class="problem">
-					<div class="exerciseNumber">${problem?index+1}</div>
+					<div class="exerciseNumber">${problem?index+1}.</div>
 					<div class="firstNumber">${problem.firstNum}</div>
 					<div class="secondNumber">${problem.secNum}</div>
 					<div class="operator">${problem.op}</div>

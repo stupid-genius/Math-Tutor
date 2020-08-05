@@ -9,8 +9,8 @@ public class SimpleFractionDivision extends SimpleFractionProblem {
 		operation = OperationEnum.DIVISION;
 	}
 
-	public SimpleFractionDivision(Map config) {
-		int level = Integer.parseInt(((Map<String, String>)config).get("level"));
+	public SimpleFractionDivision(Map<MathTutorConfiguration, String> config) {
+		int level = Integer.parseInt(config.get(MathTutorConfiguration.LEVEL));
 		firstNumber = new SimpleFraction((int) (Math.random() * level), (int) (Math.random() * level) + 1);
 		secondNumber = new SimpleFraction((int) (Math.random() * level)+1, (int) (Math.random() * level) + 1);
 		operation = OperationEnum.DIVISION;

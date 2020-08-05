@@ -3,10 +3,16 @@ package com.stupid_genius.mathtutor;
 import java.util.Map;
 
 public class SimpleIntegerAddition extends SimpleIntegerProblem {
-	public SimpleIntegerAddition(Map config) {
-		int level = Integer.parseInt(((Map<String, String>)config).get("level"));
-		firstNumber = (int) (Math.random() * level);
-		secondNumber = (int) (Math.random() * level);
+	public SimpleIntegerAddition(Map<MathTutorConfiguration, String> config) {
+		int level = Integer.parseInt(config.get(MathTutorConfiguration.LEVEL));
+		boolean allowNegatives = Boolean.parseBoolean((String) config.get(MathTutorConfiguration.NEGATIVE));
+		if(allowNegatives){
+			firstNumber = (int) (Math.random() * (level*2))-level;
+			secondNumber = (int) (Math.random() * (level*2))-level;
+		}else{
+			firstNumber = (int) (Math.random() * level);
+			secondNumber = (int) (Math.random() * level);
+		}
 		operation = OperationEnum.ADDITION;
 	}
 

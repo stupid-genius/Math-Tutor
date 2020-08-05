@@ -10,11 +10,11 @@ import java.util.Map;
 import static org.junit.Assert.assertTrue;
 
 public class SimpleIntegerProblemTest {
-	static Map<String, String> config = Maps.newHashMap();
+	static Map<MathTutorConfiguration, String> config = Maps.newHashMap();
 
 	@BeforeClass
 	public static void setupConfig(){
-		config.put("level", "100");
+		config.put(MathTutorConfiguration.LEVEL, "100");
 	}
 
 	@Test

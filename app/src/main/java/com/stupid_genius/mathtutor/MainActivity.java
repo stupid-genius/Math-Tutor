@@ -64,22 +64,10 @@ public class MainActivity extends AppCompatActivity {
 	private int difficulty = 10;
 	private boolean allowNegatives = false;
 
-	private Configuration config = new Configuration();
-	private Template worksheetTemplate = null;
 	private WebView webView;
 
 	public MainActivity() {
 		tutor = new MathTutor();
-	}
-
-	private Template getTemplate(Context applicationContext, Configuration conf) throws IOException {
-		InputStream ins = applicationContext.getResources().openRawResource(R.raw.worksheet);
-		java.util.Scanner s = new java.util.Scanner(ins).useDelimiter("\\A");
-		String template = s.hasNext() ? s.next() : "";
-		StringTemplateLoader stringLoader = new StringTemplateLoader();
-		stringLoader.putTemplate("worksheet", template);
-		conf.setTemplateLoader(stringLoader);
-		return conf.getTemplate("worksheet");
 	}
 
 	private void createWebPrintJob(WebView view){
@@ -104,33 +92,6 @@ public class MainActivity extends AppCompatActivity {
 		resultTop = findViewById(R.id.result_top);
 		accuracy = findViewById(R.id.accuracy);
 		problemCount = findViewById(R.id.totalProblems);
-
-		config.setDefaultEncoding("UTF-8");
-		config.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-		config.setLogTemplateExceptions(true);
-
-		// build dummy data
-//		tutor.startSession(NumberEnum.INTEGER, operation, 30, difficulty, allowNegatives, false);
-		int firstNum = 12;
-		int secNum = 34;
-		/*for(int i=0; i<10; ++i){
-			Map<String, String> problem = Maps.newHashMap();
-			problem.put("firstNum", String.valueOf(firstNum));
-			problem.put("secNum", String.valueOf(secNum));
-			problem.put("op", "+");
-			problem.put("answer", String.valueOf(firstNum+secNum));
-			problems.add(problem);
-			++firstNum;
-			++secNum;
-		}
-		SimpleDateFormat format = new SimpleDateFormat("MMMM d, y");
-		modelRoot.put("date", format.format(new Date()));*/
-
-		try {
-			worksheetTemplate = getTemplate(getApplicationContext(), config);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 		startSession();
 	}
@@ -201,28 +162,11 @@ public class MainActivity extends AppCompatActivity {
 				startActivity(intent);
 				break;
 			case R.id.worksheet:
-				Map<String, Object> modelRoot = Maps.newHashMap();
-				SimpleDateFormat format = new SimpleDateFormat("MMMM d, y");
-				modelRoot.put("date", format.format(new Date()));
-				List<Map<String, String>> problems = Lists.newArrayList();
-				modelRoot.put("problems", problems);
 
+				/*AppWorksheetTemplate template = new AppWorksheetTemplate();
+				template.setApplicationContext(getApplicationContext());
+				tutor.setTemplate(template);
 				tutor.startSession(NumberEnum.INTEGER, operation, 25, difficulty, allowNegatives, false);
-				for(SimpleProblem problem : tutor){
-					Map<String, String> newProblem = Maps.newHashMap();
-					newProblem.put("firstNum", String.valueOf(problem.getFirstNumber()));
-					newProblem.put("secNum", String.valueOf(problem.getSecondNumber()));
-					newProblem.put("op", problem.getOperator());
-					newProblem.put("answer", String.valueOf(problem.getAnswer()));
-					problems.add(newProblem);
-				}
-
-				StringWriter out = new StringWriter();
-				try {
-					worksheetTemplate.process(modelRoot, out);
-				} catch (TemplateException | IOException e) {
-					e.printStackTrace();
-				}
 
 				webView = new WebView(MainActivity.this);
 				webView.setWebViewClient(new WebViewClient(){
@@ -236,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 						webView = null;
 					}
 				});
-				webView.loadDataWithBaseURL(null, out.toString(), "text/HTML", "UTF-8", null);
+				webView.loadDataWithBaseURL(null, tutor.toString(), "text/HTML", "UTF-8", null);*/
 				break;
 			default:
 				return super.onOptionsItemSelected(item);

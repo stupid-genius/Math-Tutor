@@ -50,12 +50,17 @@ public class SimpleFractionProblemTest {
 
 	@Test
 	public void division() {
+		SimpleFraction a = new SimpleFraction(2, 3);
+		SimpleFraction b = new SimpleFraction(4, 5);
+		SimpleFraction expected = new SimpleFraction(5, 6);
+		SimpleFractionProblem problem = new SimpleFractionDivision(a, b);
+		assertTrue(problem.checkAnswer(expected));
 	}
 
 	@Test
 	public void fuzz() {
-		Map<String, String> config = Maps.newHashMap();
-		config.put("level", "100");
+		Map<MathTutorConfiguration, String> config = Maps.newHashMap();
+		config.put(MathTutorConfiguration.LEVEL, "100");
 
 		for (int i=0; i<100; ++i) {
 			SimpleFractionAddition problem = new SimpleFractionAddition(config);

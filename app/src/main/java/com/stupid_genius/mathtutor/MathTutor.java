@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,17 +17,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import freemarker.template.Configuration;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
 
 public class MathTutor implements Iterable<SimpleProblem> {
 	private ProblemFactory problemFactory;
 	private int numCorrect;
 	private boolean normalShutdown = false;
 
-//	private int sessionCount;
+	private WorksheetTemplate template;
 
 	/**
 	 * Configurations:
@@ -36,7 +32,7 @@ public class MathTutor implements Iterable<SimpleProblem> {
 	 * - operation
 	 * - difficulty level
 	 * - allow negatives
-	 * - allow impromper fractions
+	 * - allow improper fractions
 	 *
 	 * @param op
 	 * @param difficulty
@@ -81,13 +77,38 @@ public class MathTutor implements Iterable<SimpleProblem> {
 
 	public String getSessionStats(){
 		StringBuilder report = new StringBuilder();
+		report.append(problemFactory.toString());
 		report.append(problemFactory.getSessionStats());
 		report.append(String.format("\nNumber correct: %d", numCorrect));
 		return report.toString();
 	}
 
+	public void setTemplate(WorksheetTemplate worksheetTemplate){
+		template = worksheetTemplate;
+	}
+
 	public String toString() {
-		return problemFactory.toString();
+		if(template==null){
+			throw new RuntimeException("no WorksheetTemplate");
+		}
+		Map<String, Object> modelRoot = Maps.newHashMap();
+		List<Map<String, String>> problems = Lists.newArrayList();
+		modelRoot.put("problems", problems);
+		SimpleDateFormat format = new SimpleDateFormat("MMMM d, y");
+		modelRoot.put("date", format.format(new Date()));
+
+		for(SimpleProblem problem : this){
+			problems.add(problem.getModel());
+		}
+
+		template.loadTemplate();
+		StringWriter out = new StringWriter();
+		try {
+			template.getTemplate().process(modelRoot, out);
+		} catch (TemplateException | IOException e) {
+			e.printStackTrace();
+		}
+		return out.toString();
 	}
 
 	public static void main(String[] args) {
@@ -103,53 +124,16 @@ public class MathTutor implements Iterable<SimpleProblem> {
 			}
 		});
 
-		Map<String, Object> modelRoot = Maps.newHashMap();
-		List<Map<String, String>> problems = Lists.newArrayList();
-		modelRoot.put("problems", problems);
-		SimpleDateFormat format = new SimpleDateFormat("MMMM d, y");
-		modelRoot.put("date", format.format(new Date()));
-
-		tutor.startSession(NumberEnum.INTEGER, OperationEnum.RANDOM,25, 10, false, false);
-		for(SimpleProblem problem : tutor){
-			Map<String, String> newProblem = Maps.newHashMap();
-			newProblem.put("firstNum", String.valueOf(problem.getFirstNumber()));
-			newProblem.put("secNum", String.valueOf(problem.getSecondNumber()));
-			newProblem.put("op", problem.getOperator());
-			newProblem.put("answer", String.valueOf(problem.getAnswer()));
-			problems.add(newProblem);
-		}
-
-		Configuration config = new Configuration();
-		try {
-			config.setDirectoryForTemplateLoading(new File("app/src/main/res/raw"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		config.setDefaultEncoding("UTF-8");
-		config.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-		config.setLogTemplateExceptions(false);
-		Template worksheetTemplate = null;
-		try {
-			worksheetTemplate = config.getTemplate("worksheet.html");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		StringWriter out = new StringWriter();
-		try {
-			worksheetTemplate.process(modelRoot, out);
-		} catch (TemplateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		tutor.startSession(NumberEnum.INTEGER, OperationEnum.RANDOM, 25, 10, true, false);
+		tutor.setTemplate(new CLIWorksheetTemplate());
 		try (PrintStream ostrm = new PrintStream(new FileOutputStream("mathworksheet.html"))) {
-			ostrm.print(out.toString());
+			ostrm.print(tutor.toString());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
 		System.out.println("Welcome to MathTutor CLI!");
-		tutor.startSession(NumberEnum.INTEGER, OperationEnum.RANDOM,0, 10, false, false);
+		tutor.startSession(NumberEnum.INTEGER, OperationEnum.RANDOM,0, 10, true, false);
 		Scanner stdin = new Scanner(System.in);
 		for(SimpleProblem problem : tutor){
 			System.out.println(problem.toString());
@@ -172,7 +156,6 @@ public class MathTutor implements Iterable<SimpleProblem> {
 			}
 		}
 		tutor.killSession();
-		System.out.println(tutor.toString());
 		tutor.normalShutdown = true;
 	}
 }

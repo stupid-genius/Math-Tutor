@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".WorksheetSettingsActivity"
-            android:label="@string/title_activity_worksheet_settings"></activity>
-        <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>

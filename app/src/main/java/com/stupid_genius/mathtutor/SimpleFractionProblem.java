@@ -1,5 +1,7 @@
 package com.stupid_genius.mathtutor;
 
+import java.util.Map;
+
 public abstract class SimpleFractionProblem implements SimpleProblem {
 	protected SimpleFraction firstNumber;
 	protected SimpleFraction secondNumber;
@@ -15,6 +17,10 @@ public abstract class SimpleFractionProblem implements SimpleProblem {
 
 	public String getOperator(){
 		return operation.getOperator();
+	}
+
+	public Map<String, String> getModel(){
+		return null;
 	}
 
 	public String toString() {

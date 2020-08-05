@@ -9,8 +9,8 @@ public class SimpleFractionSubtraction extends SimpleFractionProblem {
 		operation = OperationEnum.SUBTRACTION;
 	}
 
-	public SimpleFractionSubtraction(Map config) {
-		int level = Integer.parseInt(((Map<String, String>)config).get("level"));
+	public SimpleFractionSubtraction(Map<MathTutorConfiguration, String> config) {
+		int level = Integer.parseInt(config.get(MathTutorConfiguration.LEVEL));
 		firstNumber = new SimpleFraction((int) (Math.random() * level), (int) (Math.random() * level) + 1);
 		secondNumber = new SimpleFraction((int) (Math.random() * level), (int) (Math.random() * level) + 1);
 		operation = OperationEnum.SUBTRACTION;

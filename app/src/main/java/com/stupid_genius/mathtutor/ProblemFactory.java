@@ -18,9 +18,9 @@ class ProblemFactory implements Iterator<SimpleProblem>{
 		numberClass = num;
 		operation = op;
 		sessionCount = count;
-		config.put("level", String.valueOf(difficulty));
-		config.put("negatives", String.valueOf(negatives));
-		config.put("improper", String.valueOf(improper));
+		config.put(MathTutorConfiguration.LEVEL, String.valueOf(difficulty));
+		config.put(MathTutorConfiguration.NEGATIVE, String.valueOf(negatives));
+		config.put(MathTutorConfiguration.IMPROPER, String.valueOf(improper));
 	}
 
 	@Override

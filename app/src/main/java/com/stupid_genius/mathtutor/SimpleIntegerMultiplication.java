@@ -13,7 +13,7 @@ class SimpleIntegerMultiplication extends SimpleIntegerProblem {
 			firstNumber = (int) (Math.random() * level);
 			secondNumber = (int) (Math.random() * level);
 		}
-		operation = OperationEnum.MULTIPLICATION;
+		operation = OperationEnum.Multiplication;
 	}
 
 	@Override

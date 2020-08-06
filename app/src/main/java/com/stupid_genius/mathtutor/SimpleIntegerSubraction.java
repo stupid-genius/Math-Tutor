@@ -13,7 +13,7 @@ public class SimpleIntegerSubraction extends SimpleIntegerProblem {
 			secondNumber = (int) (Math.random() * level*.8);
 			firstNumber = ((int) (Math.random() * level*.8) + 1) + secondNumber;
 		}
-		operation = OperationEnum.SUBTRACTION;
+		operation = OperationEnum.Subtraction;
 	}
 
 	@Override

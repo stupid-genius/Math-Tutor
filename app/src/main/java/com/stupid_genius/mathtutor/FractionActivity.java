@@ -43,7 +43,7 @@ public class FractionActivity extends AppCompatActivity {
 
 	private MathTutor tutor;
 	private SimpleProblem problem;
-	private OperationEnum operation = OperationEnum.RANDOM;
+	private OperationEnum operation = OperationEnum.Random;
 	private int difficulty = 10;
 	private boolean allowNegatives = false;
 	private boolean allowImproper = false;
@@ -122,19 +122,19 @@ public class FractionActivity extends AppCompatActivity {
 				dialog.show();
 				return true;
 			case R.id.addition:
-				operation = OperationEnum.ADDITION;
+				operation = OperationEnum.Addition;
 				break;
 			case R.id.subtraction:
-				operation = OperationEnum.SUBTRACTION;
+				operation = OperationEnum.Subtraction;
 				break;
 			case R.id.multiplication:
-				operation = OperationEnum.MULTIPLICATION;
+				operation = OperationEnum.Multiplication;
 				break;
 			case R.id.division:
-				operation = OperationEnum.DIVISION;
+				operation = OperationEnum.Division;
 				break;
 			case R.id.random:
-				operation = OperationEnum.RANDOM;
+				operation = OperationEnum.Random;
 				break;
 			case R.id.integers:
 				Intent intent = new Intent(FractionActivity.this, MainActivity.class);
@@ -143,6 +143,8 @@ public class FractionActivity extends AppCompatActivity {
 			case R.id.fractions:
 				return true;
 			case R.id.worksheet:
+				Intent worksheetIntent = new Intent(FractionActivity.this, WorksheetActivity.class);
+				startActivity(worksheetIntent);
 				break;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -277,8 +279,7 @@ public class FractionActivity extends AppCompatActivity {
 	private void startSession() {
 		setResult("");
 		setResultTop("");
-//		NumberEnum numClass = allowImproper ? NumberEnum.FRACTION_IMPROPER : NumberEnum.FRACTION;
-		tutor.startSession(NumberEnum.FRACTION, operation, 0, difficulty, allowNegatives, allowImproper);
+		tutor.startSession(NumberEnum.Fraction, operation, 0, difficulty, allowNegatives, allowImproper);
 		updateStats();
 		startProblem();
 	}

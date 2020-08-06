@@ -13,7 +13,7 @@ public class SimpleIntegerAddition extends SimpleIntegerProblem {
 			firstNumber = (int) (Math.random() * level);
 			secondNumber = (int) (Math.random() * level);
 		}
-		operation = OperationEnum.ADDITION;
+		operation = OperationEnum.Addition;
 	}
 
 	@Override

@@ -7,8 +7,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public enum NumberEnum {
-	INTEGER(SimpleIntegerAddition.class, SimpleIntegerSubraction.class, SimpleIntegerMultiplication.class, SimpleIntegerDivision.class),
-	FRACTION(SimpleFractionAddition.class, SimpleFractionSubtraction.class, SimpleFractionMultiplication.class, SimpleFractionDivision.class);
+	Integer(SimpleIntegerAddition.class, SimpleIntegerSubraction.class, SimpleIntegerMultiplication.class, SimpleIntegerDivision.class),
+	Fraction(SimpleFractionAddition.class, SimpleFractionSubtraction.class, SimpleFractionMultiplication.class, SimpleFractionDivision.class);
 //	DECIMAL,
 //	EXPONENT,
 
@@ -19,10 +19,10 @@ public enum NumberEnum {
 			Class<? extends SimpleProblem> multiplicationClass,
 			Class<? extends SimpleProblem> divisionClass){
 		try {
-			constructors.put(OperationEnum.ADDITION, additionClass.getConstructor(Map.class));
-			constructors.put(OperationEnum.SUBTRACTION, subtractionClass.getConstructor(Map.class));
-			constructors.put(OperationEnum.MULTIPLICATION, multiplicationClass.getConstructor(Map.class));
-			constructors.put(OperationEnum.DIVISION, divisionClass.getConstructor(Map.class));
+			constructors.put(OperationEnum.Addition, additionClass.getConstructor(Map.class));
+			constructors.put(OperationEnum.Subtraction, subtractionClass.getConstructor(Map.class));
+			constructors.put(OperationEnum.Multiplication, multiplicationClass.getConstructor(Map.class));
+			constructors.put(OperationEnum.Division, divisionClass.getConstructor(Map.class));
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		}

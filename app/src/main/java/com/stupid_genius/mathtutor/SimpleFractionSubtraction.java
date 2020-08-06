@@ -6,14 +6,14 @@ public class SimpleFractionSubtraction extends SimpleFractionProblem {
 	public SimpleFractionSubtraction(SimpleFraction first, SimpleFraction second) {
 		firstNumber = first;
 		secondNumber = second;
-		operation = OperationEnum.SUBTRACTION;
+		operation = OperationEnum.Subtraction;
 	}
 
 	public SimpleFractionSubtraction(Map<MathTutorConfiguration, String> config) {
 		int level = Integer.parseInt(config.get(MathTutorConfiguration.LEVEL));
 		firstNumber = new SimpleFraction((int) (Math.random() * level), (int) (Math.random() * level) + 1);
 		secondNumber = new SimpleFraction((int) (Math.random() * level), (int) (Math.random() * level) + 1);
-		operation = OperationEnum.SUBTRACTION;
+		operation = OperationEnum.Subtraction;
 	}
 
 	@Override

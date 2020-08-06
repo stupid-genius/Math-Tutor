@@ -4,41 +4,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.print.PrintAttributes;
-import android.print.PrintDocumentAdapter;
-import android.print.PrintJob;
-import android.print.PrintManager;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import freemarker.cache.StringTemplateLoader;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
 
 public class MainActivity extends AppCompatActivity {
 	TextView firstNumber;
@@ -60,21 +36,12 @@ public class MainActivity extends AppCompatActivity {
 
 	private MathTutor tutor;
 	private SimpleProblem problem;
-	private OperationEnum operation = OperationEnum.RANDOM;
+	private OperationEnum operation = OperationEnum.Random;
 	private int difficulty = 10;
 	private boolean allowNegatives = false;
 
-	private WebView webView;
-
 	public MainActivity() {
 		tutor = new MathTutor();
-	}
-
-	private void createWebPrintJob(WebView view){
-		PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
-		String jobName = getString(R.string.app_name) + " Worksheet";
-		PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter(jobName);
-		PrintJob printJob = printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
 	}
 
 	@Override
@@ -141,19 +108,19 @@ public class MainActivity extends AppCompatActivity {
 				dialog.show();
 				return true;
 			case R.id.addition:
-				operation = OperationEnum.ADDITION;
+				operation = OperationEnum.Addition;
 				break;
 			case R.id.subtraction:
-				operation = OperationEnum.SUBTRACTION;
+				operation = OperationEnum.Subtraction;
 				break;
 			case R.id.multiplication:
-				operation = OperationEnum.MULTIPLICATION;
+				operation = OperationEnum.Multiplication;
 				break;
 			case R.id.division:
-				operation = OperationEnum.DIVISION;
+				operation = OperationEnum.Division;
 				break;
 			case R.id.random:
-				operation = OperationEnum.RANDOM;
+				operation = OperationEnum.Random;
 				break;
 			case R.id.integers:
 				return true;
@@ -162,25 +129,8 @@ public class MainActivity extends AppCompatActivity {
 				startActivity(intent);
 				break;
 			case R.id.worksheet:
-
-				/*AppWorksheetTemplate template = new AppWorksheetTemplate();
-				template.setApplicationContext(getApplicationContext());
-				tutor.setTemplate(template);
-				tutor.startSession(NumberEnum.INTEGER, operation, 25, difficulty, allowNegatives, false);
-
-				webView = new WebView(MainActivity.this);
-				webView.setWebViewClient(new WebViewClient(){
-					public boolean shouldOverrideUrlLoading(WebView view, String url){
-						return false;
-					}
-
-					@Override
-					public void onPageFinished(WebView view, String url){
-						createWebPrintJob(view);
-						webView = null;
-					}
-				});
-				webView.loadDataWithBaseURL(null, tutor.toString(), "text/HTML", "UTF-8", null);*/
+				Intent worksheetIntent = new Intent(MainActivity.this, WorksheetActivity.class);
+				startActivity(worksheetIntent);
 				break;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -269,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
 	private void startSession() {
 		setResult("");
 		setResultTop("");
-		tutor.startSession(NumberEnum.INTEGER, operation, 0, difficulty, allowNegatives, false);
+		tutor.startSession(NumberEnum.Integer, operation, 0, difficulty, allowNegatives, false);
 		updateStats();
 		startProblem();
 	}

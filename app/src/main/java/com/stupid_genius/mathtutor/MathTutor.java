@@ -124,7 +124,7 @@ public class MathTutor implements Iterable<SimpleProblem> {
 			}
 		});
 
-		tutor.startSession(NumberEnum.INTEGER, OperationEnum.RANDOM, 25, 10, true, false);
+		tutor.startSession(NumberEnum.Integer, OperationEnum.Random, 25, 30, true, false);
 		tutor.setTemplate(new CLIWorksheetTemplate());
 		try (PrintStream ostrm = new PrintStream(new FileOutputStream("mathworksheet.html"))) {
 			ostrm.print(tutor.toString());
@@ -133,7 +133,7 @@ public class MathTutor implements Iterable<SimpleProblem> {
 		}
 
 		System.out.println("Welcome to MathTutor CLI!");
-		tutor.startSession(NumberEnum.INTEGER, OperationEnum.RANDOM,0, 10, true, false);
+		tutor.startSession(NumberEnum.Integer, OperationEnum.Random,0, 10, true, false);
 		Scanner stdin = new Scanner(System.in);
 		for(SimpleProblem problem : tutor){
 			System.out.println(problem.toString());

@@ -32,7 +32,7 @@ class ProblemFactory implements Iterator<SimpleProblem>{
 	public SimpleProblem next() {
 		++sessionCreated;
 		OperationEnum op = operation;
-		if(OperationEnum.RANDOM.equals(operation)){
+		if(OperationEnum.Random.equals(operation)){
 			op = ops[(int)(Math.random()*(ops.length-1))];
 		}
 		return numberClass.newProblem(op, config);
@@ -48,6 +48,6 @@ class ProblemFactory implements Iterator<SimpleProblem>{
 	}
 
 	public String toString() {
-		return String.format("Problem factory:\n%s\n%s\n%s", numberClass, operation, config);
+		return String.format("Problem factory:\n%s\n%s\n%s\n", numberClass, operation, config);
 	}
 }

@@ -1,7 +1,7 @@
 package com.stupid_genius.mathtutor;
 
 public enum OperationEnum {
-    ADDITION("+"), SUBTRACTION("-"), MULTIPLICATION("*"), DIVISION("/"), RANDOM("");
+    Addition("+"), Subtraction("-"), Multiplication("×"), Division("÷"), Random("");
 
 	private String operator;
 

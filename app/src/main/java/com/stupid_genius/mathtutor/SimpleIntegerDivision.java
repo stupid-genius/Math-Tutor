@@ -15,7 +15,7 @@ class SimpleIntegerDivision extends SimpleIntegerProblem {
 			secondNumber = (int) (Math.random() * (level-1)) + 1;
 			firstNumber = ((int) (Math.random() * level)) * secondNumber;
 		}
-		operation = OperationEnum.DIVISION;
+		operation = OperationEnum.Division;
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.stupid_genius.mathtutor;
 
+import com.google.common.collect.Maps;
+
 import java.util.Map;
 
 public abstract class SimpleFractionProblem implements SimpleProblem {
@@ -20,7 +22,14 @@ public abstract class SimpleFractionProblem implements SimpleProblem {
 	}
 
 	public Map<String, String> getModel(){
-		return null;
+		Map<String, String> newProblem = Maps.newHashMap();
+		newProblem.put("firstNumerator", String.valueOf(firstNumber.getNumerator()));
+		newProblem.put("firstDenominator", String.valueOf(firstNumber.getDenominator()));
+		newProblem.put("secNumerator", String.valueOf(secondNumber.getNumerator()));
+		newProblem.put("secDenominator", String.valueOf(secondNumber.getDenominator()));
+		newProblem.put("op", getOperator());
+		newProblem.put("answer", String.valueOf(getAnswer()));
+		return newProblem;
 	}
 
 	public String toString() {

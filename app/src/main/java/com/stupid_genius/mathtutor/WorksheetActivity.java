@@ -49,23 +49,36 @@ public class WorksheetActivity extends AppCompatActivity{
 		EditText sessionCount = findViewById(R.id.sessionCount);
 		EditText difficulty = findViewById(R.id.level);
 
-		int count = Integer.parseInt(String.valueOf(sessionCount.getText()));
-		int level = Integer.parseInt(String.valueOf(difficulty.getText()));
-
-		if(count<1){
-			count = 1;
+		int count;
+		int level;
+		String sessionCountInput = String.valueOf(sessionCount.getText());
+		String difficultyInput = String.valueOf(difficulty.getText());
+		if(sessionCountInput.isEmpty()){
+			count = 25;
+		}else{
+			count = Integer.parseInt(sessionCountInput);
+			if(count<1){
+				count = 1;
+			}
 		}
-		if(level < 10){
+		if(difficultyInput.isEmpty()){
 			level = 10;
-		}else if(level > 99){
-			level = 99;
+		}else{
+			level = Integer.parseInt(difficultyInput);
+			if(level < 10){
+				level = 10;
+			}else if(level > 99){
+				level = 99;
+			}
 		}
 
-		AppWorksheetTemplate template = new AppWorksheetTemplate();
-		template.setApplicationContext(getApplicationContext());
+		NumberEnum numberEnum = (NumberEnum) numberClass.getSelectedItem();
+		AppWorksheetTemplateLoader templateLoader = new AppWorksheetTemplateLoader();
+		templateLoader.setTemplate(numberEnum.getResourceID());
+		templateLoader.setApplicationContext(getApplicationContext());
 		tutor = new MathTutor();
-		tutor.setTemplate(template);
-		tutor.startSession((NumberEnum) numberClass.getSelectedItem(), (OperationEnum) operation.getSelectedItem(), count, level, allowNegatives.isChecked(), allowImproper.isChecked());
+		tutor.setLoader(templateLoader);
+		tutor.startSession(numberEnum, (OperationEnum) operation.getSelectedItem(), count, level, allowNegatives.isChecked(), allowImproper.isChecked());
 
 		webView = new WebView(WorksheetActivity.this);
 		webView.setWebViewClient(new WebViewClient(){

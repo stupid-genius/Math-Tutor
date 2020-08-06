@@ -24,7 +24,7 @@ public class MathTutor implements Iterable<SimpleProblem> {
 	private int numCorrect;
 	private boolean normalShutdown = false;
 
-	private WorksheetTemplate template;
+	private WorksheetTemplateLoader template;
 
 	/**
 	 * Configurations:
@@ -83,8 +83,8 @@ public class MathTutor implements Iterable<SimpleProblem> {
 		return report.toString();
 	}
 
-	public void setTemplate(WorksheetTemplate worksheetTemplate){
-		template = worksheetTemplate;
+	public void setLoader(WorksheetTemplateLoader worksheetTemplateLoader){
+		template = worksheetTemplateLoader;
 	}
 
 	public String toString() {
@@ -101,10 +101,9 @@ public class MathTutor implements Iterable<SimpleProblem> {
 			problems.add(problem.getModel());
 		}
 
-		template.loadTemplate();
 		StringWriter out = new StringWriter();
 		try {
-			template.getTemplate().process(modelRoot, out);
+			template.loadTemplate().process(modelRoot, out);
 		} catch (TemplateException | IOException e) {
 			e.printStackTrace();
 		}
@@ -124,8 +123,10 @@ public class MathTutor implements Iterable<SimpleProblem> {
 			}
 		});
 
-		tutor.startSession(NumberEnum.Integer, OperationEnum.Random, 25, 30, true, false);
-		tutor.setTemplate(new CLIWorksheetTemplate());
+		WorksheetTemplateLoader templateLoader = new CLIWorksheetTemplateLoader();
+		templateLoader.setTemplate("fractionworksheet.html");
+		tutor.setLoader(templateLoader);
+		tutor.startSession(NumberEnum.Fraction, OperationEnum.Random, 25, 30, true, false);
 		try (PrintStream ostrm = new PrintStream(new FileOutputStream("mathworksheet.html"))) {
 			ostrm.print(tutor.toString());
 		} catch (FileNotFoundException e) {

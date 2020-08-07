@@ -30,6 +30,10 @@ public abstract class SimpleIntegerProblem implements SimpleProblem {
 		return newProblem;
 	}
 
+	protected int random(int min, int max){
+		return (int) (Math.random() * (max-min)) + min;
+	}
+
 	public String toString() {
     	return String.format("%d %s %d =", firstNumber, operation.getOperator(), secondNumber);
 	}

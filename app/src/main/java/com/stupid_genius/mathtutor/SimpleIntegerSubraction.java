@@ -7,11 +7,11 @@ public class SimpleIntegerSubraction extends SimpleIntegerProblem {
 		int level = Integer.parseInt(config.get(MathTutorConfiguration.LEVEL));
 		boolean allowNegatives = Boolean.parseBoolean((String) config.get(MathTutorConfiguration.NEGATIVE));
 		if(allowNegatives){
-			firstNumber = (int) (Math.random() * (level*2))-level;
-			secondNumber = (int) (Math.random() * (level*2))-level;
+			firstNumber = random(-level, level);
+			secondNumber = random(-level, level);
 		}else{
-			secondNumber = (int) (Math.random() * level*.8);
-			firstNumber = ((int) (Math.random() * level*.8) + 1) + secondNumber;
+			secondNumber = random(0, (int)(.8*level));
+			firstNumber = random(1, (int)(.8*level)) + secondNumber;
 		}
 		operation = OperationEnum.Subtraction;
 	}

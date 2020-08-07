@@ -5,13 +5,13 @@ import java.util.Map;
 public class SimpleIntegerAddition extends SimpleIntegerProblem {
 	public SimpleIntegerAddition(Map<MathTutorConfiguration, String> config) {
 		int level = Integer.parseInt(config.get(MathTutorConfiguration.LEVEL));
-		boolean allowNegatives = Boolean.parseBoolean((String) config.get(MathTutorConfiguration.NEGATIVE));
+		boolean allowNegatives = Boolean.parseBoolean(config.get(MathTutorConfiguration.NEGATIVE));
 		if(allowNegatives){
-			firstNumber = (int) (Math.random() * (level*2))-level;
-			secondNumber = (int) (Math.random() * (level*2))-level;
+			firstNumber = random(-level, level);
+			secondNumber = random(-level, level);
 		}else{
-			firstNumber = (int) (Math.random() * level);
-			secondNumber = (int) (Math.random() * level);
+			firstNumber = random(0, level);
+			secondNumber = random(0, level);
 		}
 		operation = OperationEnum.Addition;
 	}

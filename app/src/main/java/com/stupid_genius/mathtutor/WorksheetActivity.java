@@ -34,7 +34,7 @@ public class WorksheetActivity extends AppCompatActivity{
 		operations.setAdapter(operationAdapter);
 	}
 
-	private void createWebPrintJob(WebView view){
+	private void createPrintJob(WebView view){
 		PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
 		String jobName = getString(R.string.app_name) + " Worksheet";
 		PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter(jobName);
@@ -88,7 +88,7 @@ public class WorksheetActivity extends AppCompatActivity{
 
 			@Override
 			public void onPageFinished(WebView view, String url){
-				createWebPrintJob(view);
+				createPrintJob(view);
 				webView = null;
 			}
 		});

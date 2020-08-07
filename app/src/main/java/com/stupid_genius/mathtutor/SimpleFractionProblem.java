@@ -32,6 +32,10 @@ public abstract class SimpleFractionProblem implements SimpleProblem {
 		return newProblem;
 	}
 
+	protected int random(int min, int max){
+		return (int) (Math.random() * (max-min)) + min;
+	}
+
 	public String toString() {
 		return String.format("%s %s %s =", firstNumber.toString(), operation.getOperator(), secondNumber.toString());
 	}

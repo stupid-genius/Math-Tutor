@@ -5,13 +5,26 @@ import com.google.common.math.LongMath;
 /**
  * Represents a fraction: a number which can be expressed as the ratio of two integers
  */
-public class SimpleFraction extends Number {
+public class SimpleFraction extends Number implements Comparable<SimpleFraction>{
 	private Integer numerator;
 	private Integer denominator;
+	private static final int precision = 2;
 
 	SimpleFraction(int numerator, int denominator) {
 		this.numerator = numerator;
 		this.denominator = denominator;
+	}
+
+	SimpleFraction(double decimal){
+		int whole = (int) decimal;
+		decimal -= whole;
+		int digits = String.valueOf(decimal).length()-2;
+		if(digits>SimpleFraction.precision){
+			digits = SimpleFraction.precision;
+		}
+		denominator = Double.valueOf(Math.pow(10, digits)).intValue();
+		int fraction = Double.valueOf(decimal * denominator).intValue();
+		numerator = (whole*denominator)+fraction;
 	}
 
 	public SimpleFraction add(SimpleFraction that) {
@@ -38,6 +51,17 @@ public class SimpleFraction extends Number {
 	}
 
 	@Override
+	public int compareTo(SimpleFraction o) {
+		int result;
+		if(this.equivalent(o)){
+			result = 0;
+		}else {
+			result = this.doubleValue() < o.doubleValue() ? -1 : 1;
+		}
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object that) {
 		if (!(that instanceof SimpleFraction)) {
 			return false;
@@ -58,7 +82,13 @@ public class SimpleFraction extends Number {
 			return new SimpleFraction(0,1);
 		}
 		long gcd = LongMath.gcd(Math.abs(numerator), Math.abs(denominator));
-		return new SimpleFraction((int) (numerator / gcd), (int) (denominator / gcd));
+		int reducedNumerator = (int) (numerator / gcd);
+		int reducedDenominator = (int) (denominator / gcd);
+		if(reducedNumerator<0 && reducedDenominator<0){
+			reducedNumerator *= -1;
+			reducedDenominator *= -1;
+		}
+		return new SimpleFraction(reducedNumerator, reducedDenominator);
 	}
 
 	public boolean isReduced() {
@@ -67,6 +97,10 @@ public class SimpleFraction extends Number {
 
 	public boolean isWholeNumber() {
 		return denominator.equals(1);
+	}
+
+	public boolean isProper(){
+		return numerator<denominator;
 	}
 
 	public boolean isNegative() {

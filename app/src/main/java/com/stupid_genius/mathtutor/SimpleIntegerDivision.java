@@ -8,12 +8,12 @@ class SimpleIntegerDivision extends SimpleIntegerProblem {
 		boolean allowNegatives = Boolean.parseBoolean((String) config.get(MathTutorConfiguration.NEGATIVE));
 		if(allowNegatives){
 			do{
-				secondNumber = (int) (Math.random() * (level*2)) - level;
+				secondNumber = random(-level, level);
 			}while(secondNumber.equals(0));
-			firstNumber = ((int) (Math.random() * (level*2)) - level) * secondNumber;
+			firstNumber = random(-level, level) * secondNumber;
 		}else{
-			secondNumber = (int) (Math.random() * (level-1)) + 1;
-			firstNumber = ((int) (Math.random() * level)) * secondNumber;
+			secondNumber = random(1, level);
+			firstNumber = random(0, level) * secondNumber;
 		}
 		operation = OperationEnum.Division;
 	}

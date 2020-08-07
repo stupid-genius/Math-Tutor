@@ -123,4 +123,13 @@ public class SimpleFractionTest {
 		fraction = new SimpleFraction(0, 2);
 		assertEquals(0.0, fraction.doubleValue(), 0);
 	}
+
+	public void createFromDecimal(){
+		SimpleFraction a = new SimpleFraction(1, 2);
+		SimpleFraction factor = new SimpleFraction(Math.random());
+		SimpleFraction scaled = a.multiply(factor);
+		System.out.println(a.reduce().toString());
+		System.out.println(factor.toString());
+		System.out.println(scaled.reduce().toString());
+	}
 }

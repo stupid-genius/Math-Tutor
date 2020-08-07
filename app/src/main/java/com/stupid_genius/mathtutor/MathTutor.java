@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import freemarker.template.TemplateException;
 
@@ -124,9 +123,10 @@ public class MathTutor implements Iterable<SimpleProblem> {
 		});
 
 		WorksheetTemplateLoader templateLoader = new CLIWorksheetTemplateLoader();
+//		templateLoader.setTemplate("worksheet.html");
 		templateLoader.setTemplate("fractionworksheet.html");
 		tutor.setLoader(templateLoader);
-		tutor.startSession(NumberEnum.Fraction, OperationEnum.Random, 25, 30, true, false);
+		tutor.startSession(NumberEnum.Fraction, OperationEnum.Random, 32, 30, false, false);
 		try (PrintStream ostrm = new PrintStream(new FileOutputStream("mathworksheet.html"))) {
 			ostrm.print(tutor.toString());
 		} catch (FileNotFoundException e) {
@@ -134,7 +134,7 @@ public class MathTutor implements Iterable<SimpleProblem> {
 		}
 
 		System.out.println("Welcome to MathTutor CLI!");
-		tutor.startSession(NumberEnum.Integer, OperationEnum.Random,0, 10, true, false);
+		/*tutor.startSession(NumberEnum.Integer, OperationEnum.Random,0, 10, true, false);
 		Scanner stdin = new Scanner(System.in);
 		for(SimpleProblem problem : tutor){
 			System.out.println(problem.toString());
@@ -156,7 +156,7 @@ public class MathTutor implements Iterable<SimpleProblem> {
 				System.out.printf("Incorrect: %s %s\n", problem.toString(), answer);
 			}
 		}
-		tutor.killSession();
+		tutor.killSession();*/
 		tutor.normalShutdown = true;
 	}
 }

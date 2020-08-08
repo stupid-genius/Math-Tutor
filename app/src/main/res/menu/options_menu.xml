@@ -23,6 +23,10 @@
         android:checkable="true"
         android:title="Allow negatives" />
     <item
+        android:id="@+id/allowImproper"
+        android:checkable="true"
+        android:title="Improper fractions" />
+    <item
         android:id="@+id/difficulty"
         android:title="Set difficulty"></item>
     <item

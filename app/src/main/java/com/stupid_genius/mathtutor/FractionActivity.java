@@ -92,6 +92,10 @@ public class FractionActivity extends AppCompatActivity {
 				item.setChecked(!allowNegatives);
 				allowNegatives = item.isChecked();
 				break;
+			case R.id.allowImproper:
+				item.setChecked(!allowImproper);
+				allowImproper = item.isChecked();
+				break;
 			case R.id.difficulty:
 				final EditText editView = new EditText(FractionActivity.this);
 				editView.setInputType(InputType.TYPE_CLASS_NUMBER);

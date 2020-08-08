@@ -7,10 +7,10 @@ actionText: Get MathTutor
 actionLink: https://play.google.com/store/apps/details?id=com.stupid_genius.mathtutor
 features:
 - title: Simple and Effective
-  details: Straightforward arithmetic drills with integers, fractions, decimals, and exponents
+  details: Straightforward arithmetic drills with integers and fractions (Coming Soon−decimals and exponents)
 - title: Printable worksheets
-  details: Coming soon—print out randomized worksheets with a separate answer key
+  details: Print out randomized worksheets with an answer key, an essential tool for homeschooling
 - title: Skill development
   details: Reflexive recall of arithmetic is important in any STEM field
-footer: Copyright © 2020 Stupid Genius Software
+footer: Made by Stupid Genius Software
 ---

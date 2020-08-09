@@ -90,9 +90,4 @@ public class SimpleFractionSubtraction extends SimpleFractionProblem {
 	public Number getAnswer(){
 		return firstNumber.subtract(secondNumber);
 	}
-
-	@Override
-	public boolean checkAnswer(Number input) {
-		return getAnswer().equals(input);
-	}
 }

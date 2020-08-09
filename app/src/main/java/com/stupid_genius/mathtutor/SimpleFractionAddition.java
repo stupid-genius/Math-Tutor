@@ -85,9 +85,4 @@ public class SimpleFractionAddition extends SimpleFractionProblem {
 	public Number getAnswer(){
 		return firstNumber.add(secondNumber);
 	}
-
-	@Override
-	public boolean checkAnswer(Number input) {
-		return getAnswer().equals(input);
-	}
 }

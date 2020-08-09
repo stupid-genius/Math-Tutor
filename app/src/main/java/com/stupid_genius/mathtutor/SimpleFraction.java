@@ -74,6 +74,10 @@ public class SimpleFraction extends Number implements Comparable<SimpleFraction>
 		return reduce().equals(that.reduce());
 	}
 
+	/**
+	 * reduce() potentially changes the numerator and denominator (compare with getCanonical)
+	 * @return a new, cannoncialized SimpleFraction with numerator and denominator reduced
+	 */
 	public SimpleFraction reduce() {
 		if (denominator == 0) {
 			throw new ArithmeticException("denominator cannot be zero");
@@ -82,13 +86,7 @@ public class SimpleFraction extends Number implements Comparable<SimpleFraction>
 			return new SimpleFraction(0,1);
 		}
 		long gcd = LongMath.gcd(Math.abs(numerator), Math.abs(denominator));
-		int reducedNumerator = (int) (numerator / gcd);
-		int reducedDenominator = (int) (denominator / gcd);
-		if(reducedNumerator<0 && reducedDenominator<0){
-			reducedNumerator *= -1;
-			reducedDenominator *= -1;
-		}
-		return new SimpleFraction(reducedNumerator, reducedDenominator);
+		return new SimpleFraction((int) (numerator / gcd), (int) (denominator / gcd)).getCanonical();
 	}
 
 	public boolean isReduced() {
@@ -100,7 +98,7 @@ public class SimpleFraction extends Number implements Comparable<SimpleFraction>
 	}
 
 	public boolean isProper(){
-		return numerator<denominator;
+		return Math.abs(numerator)<Math.abs(denominator);
 	}
 
 	public boolean isNegative() {
@@ -113,6 +111,20 @@ public class SimpleFraction extends Number implements Comparable<SimpleFraction>
 
 	public Integer getDenominator() {
 		return denominator;
+	}
+
+	/**
+	 * getCanonical() does not change the absolute value of the numerator or denominator
+	 * @return a new SimpleFraction that has at most one negative value, and that in the numerator
+	 */
+	public SimpleFraction getCanonical(){
+		Integer canonicalNumerator = numerator;
+		Integer canonicalDenominator = denominator;
+		if(canonicalDenominator < 0){	// (numerator<0 && denominator<0) || denominator<0
+			canonicalNumerator *= -1;
+			canonicalDenominator *= -1;
+		}
+		return new SimpleFraction(canonicalNumerator, canonicalDenominator);
 	}
 
 	public String toString() {

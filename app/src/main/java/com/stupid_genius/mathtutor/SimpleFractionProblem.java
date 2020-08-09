@@ -32,6 +32,15 @@ public abstract class SimpleFractionProblem implements SimpleProblem {
 		return newProblem;
 	}
 
+	@Override
+	public boolean checkAnswer(Number input) {
+		if(!(input instanceof SimpleFraction)){
+			return false;
+		}
+		SimpleFraction userAnswer = (SimpleFraction) input;
+		return getAnswer().equals(userAnswer.getCanonical());
+	}
+
 	protected int random(int min, int max){
 		return (int) (Math.random() * (max-min)) + min;
 	}

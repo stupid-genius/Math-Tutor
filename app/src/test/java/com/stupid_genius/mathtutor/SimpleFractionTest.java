@@ -124,6 +124,15 @@ public class SimpleFractionTest {
 		assertEquals(0.0, fraction.doubleValue(), 0);
 	}
 
+	@Test
+	public void cannonicalEqual(){
+		SimpleFraction canonical = new SimpleFraction(-1, 2);
+		SimpleFraction nonCannonical = new SimpleFraction(1, -2);
+		assertTrue(canonical.equivalent(nonCannonical));
+		assertFalse(canonical.equals(nonCannonical));
+		assertTrue(canonical.equals(nonCannonical.getCanonical()));
+	}
+
 	public void createFromDecimal(){
 		SimpleFraction a = new SimpleFraction(1, 2);
 		SimpleFraction factor = new SimpleFraction(Math.random());

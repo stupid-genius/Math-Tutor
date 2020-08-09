@@ -58,6 +58,15 @@ public class SimpleFractionProblemTest {
 	}
 
 	@Test
+	public void negatives(){
+		SimpleFraction a = new SimpleFraction(-1, 2);
+		SimpleFraction b = new SimpleFraction(3, 4);
+		SimpleFraction expected = new SimpleFraction(3, -8);
+		SimpleFractionProblem problem = new SimpleFractionMultiplication(a, b);
+		assertTrue(problem.checkAnswer(expected));
+	}
+
+	@Test
 	public void fuzz() {
 		Map<MathTutorConfiguration, String> config = Maps.newHashMap();
 		config.put(MathTutorConfiguration.LEVEL, "100");

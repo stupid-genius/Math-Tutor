@@ -155,7 +155,11 @@ public class MainActivity extends AppCompatActivity {
 		Integer userAnswer = 0;
 		String answerText = answer.getText().toString();
 		if (answerText.length() != 0) {
-			userAnswer = Integer.valueOf(answerText);
+			try {
+				userAnswer = Integer.valueOf(answerText);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
 		}
 		return userAnswer;
 	}
